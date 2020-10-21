@@ -13,6 +13,6 @@ class listarController
 
     public function criarTabela()
     {
-        return $this->lista->getLivro();
+        return $this->lista->getMov();
     }
 }

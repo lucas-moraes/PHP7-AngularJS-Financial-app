@@ -1,11 +1,12 @@
 
 window.addEventListener('load', function () {
-    fetch('http://localhost/backend/view/get.php', { method: 'get', mode: 'no-cors' })
+    fetch('http://localhost/cloudcont/backend/view/get.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
-            var html = data.movimentacao.map(function (element) {
+            console.log(data);
+            var movimentacao = data.movimentacao.map(function (element) {
                 return (
-                    `<div class="row ${ element.valor < 0 ? 'negativo' : 'positivo' }">` +
+                    `<div class="row">` +
                     '<div class="col-1"><span>' + element.dia + '/' + element.mes + '/' + element.ano + '</span></div>' +
                     '<div class="col-2"><span>' + element.tipo + '</span></div>' +
                     '<div class="col-3"><span>' + element.categoria + '</span></div>' +
@@ -15,7 +16,8 @@ window.addEventListener('load', function () {
                     '</div>'
                 );
             }).join('');
-            document.getElementById("items").innerHTML = html;
+            document.getElementById("items").innerHTML = movimentacao;
+            document.getElementById("sum").innerHTML = "R$" + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
         });
 });
 

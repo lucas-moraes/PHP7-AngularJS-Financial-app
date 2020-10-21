@@ -182,14 +182,6 @@ body {
   justify-content: flex-end;
 }
 
-.negativo {
-  border-bottom: dashed 1px #ff0018;
-}
-
-.positivo {
-  border-bottom: dashed 1px #00ff89;
-}
-
 .col-1{
   padding: 5px;
   width: 70px;
