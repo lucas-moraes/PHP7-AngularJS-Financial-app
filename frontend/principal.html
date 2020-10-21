@@ -1,0 +1,80 @@
+<html lang="pt-BR">
+
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="principal.css">
+        <script src="scripts.js"></script>
+    </head>
+
+    <body>
+        <div class="card">
+            <ul class="tab">
+                <li class="tab-item active" onclick="openTab(event, 'Mensal')">
+                    <a class="tab-links" href="#">Mensal</a>
+                </li>
+                <li class="tab-item" onclick="openTab(event, 'Resumos')">
+                    <a class="tab-links" href="#">Resumos</a>
+                </li>
+            </ul>
+
+            <div id="Mensal" class="tabcontent" style="display: block;">
+                <ul class="tab-menu">
+                    <div>
+                        <li class="button">
+                            <a class="tab-links" href="#">Movimento</a>
+                        </li>
+                        <li class="button">
+                            <a class="tab-links" href="#">Categoria</a>
+                        </li>
+                    </div>
+                    <div>
+                        <select>
+                            <option>Categoria</option>
+                            <option>Primeira opção</option>
+                            <option>Segunda opção</option>
+                            <option>Terceira opção</option>
+                            <option>Quarta opção</option>
+                        </select>
+                        <select>
+                            <option>Mês</option>
+                            <option>Primeira opção</option>
+                            <option>Segunda opção</option>
+                            <option>Terceira opção</option>
+                            <option>Quarta opção</option>
+                        </select>
+                        <select>
+                            <option>Ano</option>
+                            <option>Primeira opção</option>
+                            <option>Segunda opção</option>
+                            <option>Terceira opção</option>
+                            <option>Quarta opção</option>
+                        </select>
+                    </div>
+                </ul>
+
+                <div class="row header">
+                    <div class="col-1">Dia</div>
+                    <div class="col-2">Tipo</div>
+                    <div class="col-3">Categoria</div>
+                    <div class="col-4">Descrição</div>
+                    <div class="col-5">Opções</div>
+                    <div class="col-6">Valor</div>
+                </div>
+                <div class="row">
+                    <div id="items"></div>
+                </div>
+                <div class="row bottom">
+                    <div class="col-1">Valor</div>
+                </div>
+            </div>
+
+            <div id="Resumos" class="tabcontent">
+                <h3>Paris</h3>
+                <p>Paris is the capital of France.</p>
+            </div>
+        </div>
+    </body>
+
+</html>
