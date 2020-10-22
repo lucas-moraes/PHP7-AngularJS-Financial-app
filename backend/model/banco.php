@@ -30,17 +30,8 @@ class Banco
     {
         $mes_hoje = date('m');
         $ano_hoje = date('Y');
-        $num_rec_per_page = 9;
 
-        if (isset($_GET["page"])) {
-            $page  = $_GET["page"];
-        } else {
-            $page = 1;
-        };
-
-        $start_from = ($page - 1) * $num_rec_per_page;
-
-        $result = $this->mysqli->query("SELECT * FROM lc_movimento WHERE mes='$mes_hoje' && ano='$ano_hoje' ORDER BY dia DESC LIMIT $start_from, $num_rec_per_page");
+        $result = $this->mysqli->query("SELECT * FROM lc_movimento WHERE mes='$mes_hoje' && ano='$ano_hoje' ORDER BY dia DESC");
 
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $cat = $row['categoria'];
