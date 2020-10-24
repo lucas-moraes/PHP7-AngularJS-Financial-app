@@ -3,7 +3,6 @@ window.addEventListener('load', function () {
     fetch('http://localhost/cloudcont/backend/view/get.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
-            console.log(data);
             var movimentacao = data.movimentacao.map(function (element) {
                 return (
                     `<div class="row">` +
@@ -21,7 +20,6 @@ window.addEventListener('load', function () {
         });
 });
 
-
 function openTab (evt, tabName) {
     var i, tabcontent, tabitem;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -34,7 +32,53 @@ function openTab (evt, tabName) {
     {
         tabitem[ i ].className = tabitem[ i ].className.replace(" active", "");
     }
-    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.display = "flex";
     evt.currentTarget.className += (" active");
+}
+
+function fadeOut (id, time,) {
+    fade(id, time, 100, 0, "none");
+}
+
+function fadeIn (id, time) {
+    fade(id, time, 0, 100, "block");
+}
+
+function fade (id, time, ini, fin, display) {
+    var target = document.getElementById(id);
+    var alpha = ini;
+    var inc;
+    if (fin >= ini)
+    {
+        inc = 2;
+    } else
+    {
+        inc = -2;
+    }
+    timer = (time * 100) / 50;
+    var i = setInterval(
+        function () {
+            if ((inc > 0 && alpha >= fin) || (inc < 0 && alpha <= fin))
+            {
+                clearInterval(i);
+            }
+            setAlpha(target, alpha, display);
+            alpha += inc;
+        }, timer);
+}
+
+function setAlpha (target, alpha, display) {
+    target.style.filter = "alpha(opacity=" + alpha + ")";
+    target.style.opacity = alpha / 100;
+    switch (display)
+    {
+        case "none":
+            target.style.display = "none";
+            break;
+        case "block":
+            target.style.display = "block";
+            break;
+    }
+
 }
 
