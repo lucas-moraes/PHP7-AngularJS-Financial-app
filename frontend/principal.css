@@ -68,7 +68,7 @@ body {
   }
 
   .input-date {
-    width: 80px;
+    width: 135px;
     text-align: center;
     background: none;
     border: none;
@@ -82,6 +82,7 @@ body {
 
   .titulo-label {
     justify-content: space-between;
+    display: flex;
   }
 
   .text-center {
@@ -97,6 +98,10 @@ body {
     box-shadow: 5px 5px 9px 0 #00000040, -5px -5px 12px 0 #faf7f736;
     border-radius: 20px;
     padding: 25px;
+  }
+
+  .register{
+    width: 500px;
   }
 
 .tab {
@@ -151,15 +156,17 @@ body {
   color: #2c2c41;
 }
 
-#show {
+#screen_register {
   display: none;
   opacity: 0;
+  justify-content: center;
 }
 
 #mensal {
   display: flex;
   justify-content: center;
 }
+
 .tabcontent {
   display: none;
   padding: 20px;

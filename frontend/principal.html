@@ -20,55 +20,68 @@
             </ul>
 
             <div id="Mensal" class="tabcontent" style="display: block;">
-                <ul class="tab-menu">
-                    <div>
-                        <li class="button">
-                            <a class="tab-links" href="#">Movimento</a>
-                        </li>
-                        <li class="button">
-                            <a class="tab-links" href="#">Categoria</a>
-                        </li>
+                <div id="screen_movimentation">
+                    <ul class="tab-menu">
+                        <div>
+                            <li class="button"
+                                onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex')">
+                                <a class="tab-links" href="#">Movimento</a>
+                            </li>
+                            <li class="button">
+                                <a class="tab-links" href="#">Categoria</a>
+                            </li>
+                        </div>
+                        <div>
+                            <select>
+                                <option>Categoria</option>
+                                <option>Primeira opção</option>
+                                <option>Segunda opção</option>
+                                <option>Terceira opção</option>
+                                <option>Quarta opção</option>
+                            </select>
+                            <select>
+                                <option>Mês</option>
+                                <option>Primeira opção</option>
+                                <option>Segunda opção</option>
+                                <option>Terceira opção</option>
+                                <option>Quarta opção</option>
+                            </select>
+                            <select>
+                                <option>Ano</option>
+                                <option>Primeira opção</option>
+                                <option>Segunda opção</option>
+                                <option>Terceira opção</option>
+                                <option>Quarta opção</option>
+                            </select>
+                        </div>
+                    </ul>
+                    <div class="row header">
+                        <div class="col-1">Dia</div>
+                        <div class="col-2">Tipo</div>
+                        <div class="col-3">Categoria</div>
+                        <div class="col-4">Descrição</div>
+                        <div class="col-5">Opções</div>
+                        <div class="col-6">Valor</div>
                     </div>
-                    <div>
-                        <select>
-                            <option>Categoria</option>
-                            <option>Primeira opção</option>
-                            <option>Segunda opção</option>
-                            <option>Terceira opção</option>
-                            <option>Quarta opção</option>
-                        </select>
-                        <select>
-                            <option>Mês</option>
-                            <option>Primeira opção</option>
-                            <option>Segunda opção</option>
-                            <option>Terceira opção</option>
-                            <option>Quarta opção</option>
-                        </select>
-                        <select>
-                            <option>Ano</option>
-                            <option>Primeira opção</option>
-                            <option>Segunda opção</option>
-                            <option>Terceira opção</option>
-                            <option>Quarta opção</option>
-                        </select>
+                    <div class="row">
+                        <div id="items"></div>
                     </div>
-                </ul>
+                    <div class="row bottom">
+                        <div class="col-3">Total do mês</div>
+                        <div class="col-6"><span id="sum"></span></div>
 
-                <div class="row header">
-                    <div class="col-1">Dia</div>
-                    <div class="col-2">Tipo</div>
-                    <div class="col-3">Categoria</div>
-                    <div class="col-4">Descrição</div>
-                    <div class="col-5">Opções</div>
-                    <div class="col-6">Valor</div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div id="items"></div>
-                </div>
-                <div class="row bottom">
-                    <div class="col-3">Total do mês</div>
-                    <div class="col-6"><span id="sum"></span></div>
-
+                <div id="screen_register">
+                    <div class="register border">
+                        <div class="titulo-label">
+                            <span class="titulo">Adicionar Movimento</span>
+                            <a href="#"
+                                onclick="fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block')"><img
+                                    src="./assets/close.svg"></a>
+                        </div>
+                        <input type="date" class="input-date" />
+                    </div>
                 </div>
             </div>
 

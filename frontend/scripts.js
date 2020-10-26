@@ -36,12 +36,12 @@ function openTab (evt, tabName) {
     evt.currentTarget.className += (" active");
 }
 
-function fadeOut (id, time,) {
-    fade(id, time, 100, 0, "none");
+function fadeOut (id, time, display) {
+    fade(id, time, 100, 0, display);
 }
 
-function fadeIn (id, time) {
-    fade(id, time, 0, 100, "block");
+function fadeIn (id, time, display) {
+    fade(id, time, 0, 100, display);
 }
 
 function fade (id, time, ini, fin, display) {
@@ -77,6 +77,9 @@ function setAlpha (target, alpha, display) {
             break;
         case "block":
             target.style.display = "block";
+            break;
+        case "flex":
+            target.style.display = "flex";
             break;
     }
 
