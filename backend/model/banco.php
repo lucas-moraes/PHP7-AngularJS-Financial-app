@@ -59,6 +59,16 @@ class Banco
 
         return $data;
     }
+    public function getCat()
+    {
+        $query = $this->mysqli->query("SELECT * FROM categoria ORDER BY nome");
+        while ($row = $query->fetch_assoc()) {
+            $categoria[] = array('id' => $row['id'], 'nome' => $row['nome']);
+        }
+        $data['categoria'] = $categoria;
+
+        return $data;
+    }
     public function deleteLivro($id)
     {
         if ($this->mysqli->query("DELETE FROM `livros` WHERE `nome` = '" . $id . "';") == TRUE) {
