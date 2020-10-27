@@ -67,21 +67,13 @@ body {
     justify-content: center;
   }
 
-  .input-date {
-    width: 135px;
-    text-align: center;
-    background: none;
-    border: none;
-    color: #2c2c41;
-    cursor: pointer;
-  }
-
   .modal {
     width: 500px;
   }
 
   .titulo-label {
     justify-content: space-between;
+    margin-bottom: 10px;
     display: flex;
   }
 
@@ -224,6 +216,48 @@ body {
   box-shadow: inset 0px 5px 6px -5px #0a0a0f87;
   justify-content: flex-end;
 }
+
+
+.input-date {
+  width: 160px;
+  text-align: center;
+  background: none;
+  padding: 8px;
+  border: none;
+  color: #2c2c41;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0 #0d0d0d3b, inset -2px -2px 2px 0 #ffffff47;
+}
+
+
+.input-date:hover {
+  box-shadow: inset 2px 2px 7px 0 #0d0d0d73, inset -2px -2px 7px 0 #ffffffa6;
+  text-shadow: -2px -2px 2.5px #05050538, 2px 2px 2.5px #f4f4f64d;
+}
+
+
+.input-date.active {
+  box-shadow: inset 2px 2px 7px 0 #0d0d0d73, inset -2px -2px 7px 0 #ffffffa6;
+  color: #2c2c41;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  font-size: 10px;
+}
+
+
+
+
+
+
+
+
+
 
 .col-1{
   padding: 5px;

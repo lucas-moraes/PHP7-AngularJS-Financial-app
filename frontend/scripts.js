@@ -18,6 +18,24 @@ window.addEventListener('load', function () {
             document.getElementById("items").innerHTML = movimentacao;
             document.getElementById("sum").innerHTML = "R$" + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
         });
+
+    fetch('http://localhost/cloudcont/backend/view/category.php', { method: 'get', mode: 'no-cors' })
+        .then(res => { return res.json(); })
+        .then(data => {
+            var list = document.getElementById('categoria');
+            categoria = data.categoria.map(function (item) {
+                return (
+                    '<option>' + item.nome + '</option>'
+                );
+            }).join('');
+            list.innerHTML = categoria;
+            var option = document.createElement('option');
+            option.text = 'Selecione';
+            option.value = '';
+            option.selected = true;
+            var select = document.getElementById('categoria');
+            select.appendChild(option);
+        });
 });
 
 function openTab (evt, tabName) {
