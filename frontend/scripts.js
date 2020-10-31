@@ -36,6 +36,40 @@ window.addEventListener('load', function () {
             var select = document.getElementById('categoria');
             select.appendChild(option);
         });
+
+    fetch('http://localhost/cloudcont/backend/view/date.php', { method: 'get', mode: 'no-cors' })
+        .then(res => { return res.json(); })
+        .then(data => {
+            var listaMes = document.getElementById('mes');
+            mes = data.mes.map(function (item) {
+                return (
+                    '<option>' + item.mes + '</option>'
+                );
+            }).join('');
+            listaMes.innerHTML = mes;
+            var option = document.createElement('option');
+            option.text = 'Selecione';
+            option.value = '';
+            option.selected = true;
+            var select = document.getElementById('mes');
+            select.appendChild(option);
+
+            var listaAno = document.getElementById('ano');
+            ano = data.ano.map(function (item) {
+                return (
+                    '<option>' + item.ano + '</option>'
+                );
+            }).join('');
+            listaAno.innerHTML = ano;
+            var option = document.createElement('option');
+            option.text = 'Selecione';
+            option.value = '';
+            option.selected = true;
+            var select = document.getElementById('ano');
+            select.appendChild(option);
+
+        });
+
 });
 
 function openTab (evt, tabName) {
