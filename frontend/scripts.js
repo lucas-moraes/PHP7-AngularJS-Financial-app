@@ -1,5 +1,8 @@
 
 window.addEventListener('load', function () {
+
+    document.getElementById('date').value = new Date().toISOString().substring(0, 10);
+
     fetch('http://localhost/cloudcont/backend/view/get.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
