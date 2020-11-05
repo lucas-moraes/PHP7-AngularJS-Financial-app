@@ -1,5 +1,5 @@
 <?php
-require_once("../model/banco.php");
+require_once("../model/getDate.php");
 class listarController
 {
 
@@ -7,7 +7,7 @@ class listarController
 
     public function __construct()
     {
-        $this->date = new Banco();
+        $this->date = new GetDate();
         $this->criarTabela();
     }
 

@@ -1,5 +1,5 @@
 <?php
-require_once("../model/banco.php");
+require_once("../model/getMov.php");
 class listarController
 {
 
@@ -7,7 +7,7 @@ class listarController
 
     public function __construct()
     {
-        $this->lista = new Banco();
+        $this->lista = new GetMov();
         $this->criarTabela();
     }
 
