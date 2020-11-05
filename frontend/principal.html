@@ -23,11 +23,10 @@
                 <div id="screen_movimentation">
                     <ul class="tab-menu">
                         <div>
-                            <li class="button"
-                                onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex')">
+                            <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex')">
                                 <a class="tab-links" href="#">Movimento</a>
                             </li>
-                            <li class="button">
+                            <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_category', 0.5, 'flex'); callCategories()">
                                 <a class="tab-links" href="#">Categoria</a>
                             </li>
                         </div>
@@ -67,6 +66,17 @@
                         </div>
                         <label>Data</label>
                         <input id="date" type="date" class="input-date" />
+                    </div>
+                </div>
+                <div id="screen_category">
+                    <div class="register border">
+                        <div class="titulo-label">
+                            <span class="titulo">Adicionar Categoria</span>
+                            <a href="#"
+                                onclick="fadeOut('screen_category',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block')"><img
+                                    src="./assets/close.svg"></a>
+                        </div>
+
                     </div>
                 </div>
             </div>

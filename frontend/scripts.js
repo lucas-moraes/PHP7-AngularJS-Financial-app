@@ -1,4 +1,7 @@
 
+
+let listCategory = [];
+
 window.addEventListener('load', function () {
 
     document.getElementById('date').value = new Date().toISOString().substring(0, 10);
@@ -26,6 +29,7 @@ window.addEventListener('load', function () {
         .then(res => { return res.json(); })
         .then(data => {
             var list = document.getElementById('categoria');
+            listCategory = data.categoria;
             categoria = data.categoria.map(function (item) {
                 return (
                     '<option>' + item.nome + '</option>'
@@ -74,6 +78,10 @@ window.addEventListener('load', function () {
         });
 
 });
+
+function callCategories(){
+    console.log(listCategory);
+}
 
 function openTab (evt, tabName) {
     var i, tabcontent, tabitem;
