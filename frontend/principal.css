@@ -1,100 +1,100 @@
 body {
-    align-items: center;
-    background: #4169E1;
-    display: flex;
-    justify-content: center;
-    font-family: 'sans-serif';
-    color: #2c2c41;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #2c2c41;
-  }
+  align-items: center;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  font-family: 'sans-serif';
+  color: #2c2c41;
+}
 
-  ul {
-    margin: 0;
-  }
-  
-  select {
-    font-size:12px;
-    padding: 8px; 
-    color: #2c2c41;
-    margin: 5px;
-    background-color: transparent;
-    border-radius: 5px;
-    transition: 0.3s;
-    text-shadow: -2px -2px 2.5px #05050538, 2px 2px 2.5px #f4f4f64d;
-    border: none;
-    box-shadow: 3px 3px 5px 0 #00000040, -3px -3px 5px 0 #faf7f770;
-  }
+a {
+  text-decoration: none;
+  color: #2c2c41;
+}
 
-  select:focus {
-    outline: none;
-  }
+ul {
+  margin: 0;
+}
 
-  select:hover {
-    transition: 0.3s;
-    box-shadow: inset 2px 2px 7px 0 #0d0d0d6e, inset -2px -2px 7px 0 #ffffff8c;
-  }
-  
-  select:active {
-    transition: 0.3s;
-    text-shadow: -2px -2px 2.5px #05050538, 2px 2px 2.5px #f4f4f64d;
-    box-shadow: inset 2px 2px 7px 0 #0d0d0d94, inset -2px -2px 7px 0 #ffffffb8;
-  }
-  
-  select:after{
-    border-color: transparent;
-  }
+select {
+  font-size: 12px;
+  padding: 8px;
+  color: #2c2c41;
+  margin: 5px;
+  background-color: transparent;
+  border-radius: 5px;
+  transition: 0.3s;
+  text-shadow: -2px -2px 2.5px #05050538, 2px 2px 2.5px #f4f4f64d;
+  border: none;
+  box-shadow: 3px 3px 5px 0 #00000040, -3px -3px 5px 0 #faf7f770;
+}
 
-  option {
-    border-style: none;
-  }
+select:focus {
+  outline: none;
+}
 
-  option:focus {
-    outline: none;
-  }
+select:hover {
+  transition: 0.3s;
+  box-shadow: inset 2px 2px 7px 0 #0d0d0d6e, inset -2px -2px 7px 0 #ffffff8c;
+}
 
-  span {
-    font-size: 12px;
-  }
+select:active {
+  transition: 0.3s;
+  text-shadow: -2px -2px 2.5px #05050538, 2px 2px 2.5px #f4f4f64d;
+  box-shadow: inset 2px 2px 7px 0 #0d0d0d94, inset -2px -2px 7px 0 #ffffffb8;
+}
+
+select:after {
+  border-color: transparent;
+}
+
+option {
+  border-style: none;
+}
+
+option:focus {
+  outline: none;
+}
+
+span {
+  font-size: 12px;
+}
 
 .card {
-    align-items: center;
-    width: 1000px;
-    height: 560px;
-    justify-content: center;
-  }
+  align-items: center;
+  width: 1000px;
+  height: 560px;
+  justify-content: center;
+}
 
-  .modal {
-    width: 500px;
-  }
+.modal {
+  width: 500px;
+}
 
-  .titulo-label {
-    justify-content: space-between;
-    margin-bottom: 10px;
-    display: flex;
-  }
+.titulo-label {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  display: flex;
+}
 
-  .text-center {
-    display: flex;
-    align-items: center;
-  }
+.text-center {
+  display: flex;
+  align-items: center;
+}
 
-  .titulo {
-    font-size: 15px;
-  }
+.titulo {
+  font-size: 15px;
+}
 
-  .border {
-    box-shadow: 5px 5px 9px 0 #00000040, -5px -5px 12px 0 #faf7f736;
-    border-radius: 20px;
-    padding: 25px;
-  }
+.border {
+  box-shadow: 5px 5px 9px 0 #00000040, -5px -5px 12px 0 #faf7f736;
+  border-radius: 20px;
+  padding: 25px;
+}
 
-  .register{
-    width: 500px;
-  }
+.register {
+  width: 500px;
+}
 
 .tab {
   display: flex;
@@ -137,7 +137,7 @@ body {
   text-shadow: -2px -2px 2.5px #05050538, 2px 2px 2.5px #f4f4f64d;
 }
 
-.tab-menu{
+.tab-menu {
   justify-content: space-between;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -149,6 +149,12 @@ body {
 }
 
 #screen_register {
+  display: none;
+  opacity: 0;
+  justify-content: center;
+}
+
+#screen_category {
   display: none;
   opacity: 0;
   justify-content: center;
@@ -259,35 +265,35 @@ label {
 
 
 
-.col-1{
+.col-1 {
   padding: 5px;
   width: 70px;
   display: flex;
   align-items: center;
 }
 
-.col-2{
+.col-2 {
   padding: 5px;
   width: 55px;
   display: flex;
   align-items: center;
 }
 
-.col-3{
+.col-3 {
   padding: 5px;
   width: 115px;
   display: flex;
   align-items: center;
 }
 
-.col-4{
+.col-4 {
   padding: 5px;
   width: 465px;
   display: flex;
   align-items: center;
 }
 
-.col-5{
+.col-5 {
   padding: 5px;
   width: 60px;
   display: flex;
@@ -296,11 +302,10 @@ label {
   align-items: center;
 }
 
-.col-6{
+.col-6 {
   padding: 5px;
   width: 135px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-
