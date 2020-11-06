@@ -23,15 +23,15 @@
                 <div id="screen_movimentation">
                     <ul class="tab-menu">
                         <div>
-                            <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex')">
+                            <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex'); getCategories('option')">
                                 <a class="tab-links" href="#">Movimento</a>
                             </li>
-                            <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_category', 0.5, 'flex'); callCategories()">
+                            <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_category', 0.5, 'flex'); getCategories('span')">
                                 <a class="tab-links" href="#">Categoria</a>
                             </li>
                         </div>
                         <div>
-                            <select id="categoria">
+                            <select id="categories1">
                             </select>
                             <select id="mes">
                             </select>
@@ -61,22 +61,34 @@
                         <div class="titulo-label">
                             <span class="titulo">Adicionar Movimento</span>
                             <a href="#"
-                                onclick="fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block')"><img
+                                onclick="fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block');"><img
                                     src="./assets/close.svg"></a>
                         </div>
-                        <label>Data</label>
-                        <input id="date" type="date" class="input-date" />
+                        <div class="row">
+                            <label>Data</label>
+                            <input id="date" type="date" class="input-date" />
+                            <label>Categorias</label>
+                            <select id="categories2"></select>
+                        </div>
                     </div>
                 </div>
                 <div id="screen_category">
-                    <div class="register border">
+                    <div class="categories border">
                         <div class="titulo-label">
                             <span class="titulo">Adicionar Categoria</span>
                             <a href="#"
                                 onclick="fadeOut('screen_category',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block')"><img
                                     src="./assets/close.svg"></a>
                         </div>
-
+                        <div class="row" style="margin-bottom: 10px;">
+                            <input />
+                            <div class="button">
+                                <a class="tab-links" href="#">Adicionar</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="categories3"></div>
+                        </div>    
                     </div>
                 </div>
             </div>

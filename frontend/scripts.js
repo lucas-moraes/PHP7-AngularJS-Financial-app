@@ -3,9 +3,12 @@
 let listCategory = [];
 
 window.addEventListener('load', function () {
+    getMoviment();
+    getCategories('option');
+    getDate();
+});
 
-    document.getElementById('date').value = new Date().toISOString().substring(0, 10);
-
+function getMoviment(){
     fetch('http://localhost/cloudcont/backend/view/get.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
@@ -24,26 +27,85 @@ window.addEventListener('load', function () {
             document.getElementById("items").innerHTML = movimentacao;
             document.getElementById("sum").innerHTML = "R$" + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
         });
+}
 
+function getCategories(tag){
+    let categories1 = document.getElementById('categories1');
+    let categories2 = document.getElementById('categories2');
+
+    if(listCategory.length <= 0){
     fetch('http://localhost/cloudcont/backend/view/category.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
-            var list = document.getElementById('categoria');
             listCategory = data.categoria;
-            categoria = data.categoria.map(function (item) {
-                return (
-                    '<option>' + item.nome + '</option>'
-                );
-            }).join('');
-            list.innerHTML = categoria;
-            var option = document.createElement('option');
-            option.text = 'Selecione';
-            option.value = '';
-            option.selected = true;
-            var select = document.getElementById('categoria');
-            select.appendChild(option);
+            switch (tag) {
+                case 'option':
+                    categoria = data.categoria.map(function (item) {
+                        return (
+                            `<option>` + item.nome + `</option>`
+                        );
+                    }).join('');
+                    categories1.innerHTML = categoria;
+                    let option = document.createElement('option');
+                    option.text = 'Selecione';
+                    option.value = '';
+                    option.selected = true;
+                    let select = document.getElementById('categories1');
+                    select.appendChild(option);
+                    break;
+                case 'span':
+                    let categories = listCategory.map(function (element){
+                        return(
+                            '<div class="row" style="justify-content: space-between">' +
+                                    '<span>'+
+                                        element.nome +
+                                    '</span>'+
+                                    '<a href="#"><img src="./assets/close.svg"></a>'+
+                            '</div>'            
+                        )
+                    }).join('');
+                    document.getElementById("categories3").innerHTML = categories;
+                    break;
+            }
         });
+    } else {
+        switch (tag) {
+            case 'option':
+                categoria = listCategory.map(function (item) {
+                    return (
+                        `<option>` + item.nome + `</option>`
+                    );
+                }).join('');
+                categories1.innerHTML = categoria;
+                categories2.innerHTML = categoria;
+                let option = document.createElement('option');
+                option.text = 'Selecione';
+                option.value = '';
+                option.selected = true;
+                let select1 = document.getElementById('categories1');
+                select1.appendChild(option);
+                let select2 = document.getElementById('categories2');
+                select2.appendChild(option);
+                break;
+            case 'span':
+                let categories = listCategory.map(function (element){
+                    return(
+                        '<div class="row" style="justify-content: space-between">' +
+                                '<span>'+
+                                    element.nome +
+                                '</span>'+
+                                '<a href="#"><img src="./assets/close.svg"></a>'+
+                        '</div>'            
+                    )
+                }).join('');
+                document.getElementById("categories3").innerHTML = categories;
+                break;
+        }
+    }
+}
 
+function getDate(){
+    document.getElementById('date').value = new Date().toISOString().substring(0, 10);
     fetch('http://localhost/cloudcont/backend/view/date.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
@@ -77,10 +139,6 @@ window.addEventListener('load', function () {
 
         });
 
-});
-
-function callCategories(){
-    console.log(listCategory);
 }
 
 function openTab (evt, tabName) {
