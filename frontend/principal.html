@@ -64,11 +64,32 @@
                                 onclick="fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block');"><img
                                     src="./assets/close.svg"></a>
                         </div>
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div>
+                                <label>Data</label>
+                                <input id="date" type="date" class="input-date" />
+                            </div>
+                            <div>
+                                <label>Categorias</label>
+                                <select id="categories2"></select>
+                            </div>
+                            <div>
+                                <label>Movimento</label>
+                                <select>
+                                    <option>Entrada de dinheiro</option>
+                                    <option>Saída de dinheiro</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row">
-                            <label>Data</label>
-                            <input id="date" type="date" class="input-date" />
-                            <label>Categorias</label>
-                            <select id="categories2"></select>
+                            <div>
+                                <label>Valor</label>
+                                <input type="text" style="width: 80px;" onKeyPress="return(moeda(this,'.',',',event))" maxlength="5" pattern=[0-9]/>
+                            </div>
+                            <div>
+                                <label>Descrição</label>
+                                <input style="width: 362px;" />
+                            </div>
                         </div>
                     </div>
                 </div>

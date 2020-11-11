@@ -201,6 +201,10 @@ input:after {
   justify-content: center;
 }
 
+#dinheiro {
+  width: 115px;
+}
+
 .tabcontent {
   display: none;
   padding: 20px;
@@ -291,16 +295,8 @@ input:focus {
 
 label {
   font-size: 10px;
+  display: block;
 }
-
-
-
-
-
-
-
-
-
 
 .col-1 {
   padding: 5px;
