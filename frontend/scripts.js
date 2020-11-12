@@ -207,39 +207,29 @@ function setAlpha (target, alpha, display) {
 
 }
 
-function moeda(a, e, r, t) {
-    let n = ""
-      , h = j = 0
-      , u = tamanho2 = 0
-      , l = ajd2 = ""
-      , o = window.Event ? t.which : t.keyCode;
-    if (13 == o || 8 == o)
+function moeda(number, dot, comma, event) {
+    let n = "", h = j = 0, u = tamanho2 = 0, l = ajd2 = "", o = window.Event ? event.which : event.keyCode;
+    if (13 == o || 8 == o){
         return !0;
-    if (n = String.fromCharCode(o),
-    -1 == "0123456789".indexOf(n))
+    }
+    if (n = String.fromCharCode(o), -1 == "0123456789".indexOf(n)){
         return !1;
-    for (u = a.value.length,
-    h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
-        ;
-    for (l = ""; h < u; h++)
-        -1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
-    if (l += n,
-    0 == (u = l.length) && (a.value = ""),
-    1 == u && (a.value = "0" + r + "0" + l),
-    2 == u && (a.value = "0" + r + l),
-    u > 2) {
-        for (ajd2 = "",
-        j = 0,
-        h = u - 3; h >= 0; h--)
-            3 == j && (ajd2 += e,
+    }
+    for (u = number.value.length, h = 0; h < u && ("0" == number.value.charAt(h) || number.value.charAt(h) == comma); h++);
+    for (l = ""; h < u; h++){
+        -1 != "0123456789".indexOf(number.value.charAt(h)) && (l += number.value.charAt(h));
+    }
+    if (l += n, 0 == (u = l.length) && (number.value = ""), 1 == u && (number.value = "0" + comma + "0" + l), 2 == u && (number.value = "0" + comma + l), u > 2) {
+        for (ajd2 = "", j = 0, h = u - 3; h >= 0; h--){
+            3 == j && (ajd2 += dot,
             j = 0),
             ajd2 += l.charAt(h),
             j++;
-        for (a.value = "",
-        tamanho2 = ajd2.length,
-        h = tamanho2 - 1; h >= 0; h--)
-            a.value += ajd2.charAt(h);
-        a.value += r + l.substr(u - 2, u)
+        }
+        for (number.value = "", tamanho2 = ajd2.length, h = tamanho2 - 1; h >= 0; h--){
+            number.value += ajd2.charAt(h);
+        }
+        number.value += comma + l.substr(u - 2, u)
     }
     return !1
 }
