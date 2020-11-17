@@ -10,7 +10,7 @@ window.addEventListener('load', function () {
 });
 
 function getMoviment(){
-    fetch('http://localhost/cloudcont/backend/view/get.php', { method: 'get', mode: 'no-cors' })
+    fetch('http://localhost/cloudcont/backend/view/GetMoviment.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
             var movimentacao = data.movimentacao.map(function (element) {
@@ -35,7 +35,7 @@ function getCategories(tag){
     let categories2 = document.getElementById('categories2');
 
     if(listCategory.length <= 0){
-    fetch('http://localhost/cloudcont/backend/view/category.php', { method: 'get', mode: 'no-cors' })
+    fetch('http://localhost/cloudcont/backend/view/GetCategory.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
             listCategory = data.categoria;
@@ -107,7 +107,7 @@ function getCategories(tag){
 
 function getDate(){
     document.getElementById('date').value = new Date().toISOString().substring(0, 10);
-    fetch('http://localhost/cloudcont/backend/view/date.php', { method: 'get', mode: 'no-cors' })
+    fetch('http://localhost/cloudcont/backend/view/GetDate.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
             var listaMes = document.getElementById('mes');
@@ -140,6 +140,12 @@ function getDate(){
 
         });
 
+}
+
+function insertMoviment(){
+    let data = document.getElementById('date').value;
+
+    console.log(data);
 }
 
 function openTab (evt, tabName) {
