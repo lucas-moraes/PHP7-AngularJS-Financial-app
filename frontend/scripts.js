@@ -20,7 +20,7 @@ function getMoviment(){
                     '<div class="col-2"><span>' + element.tipo + '</span></div>' +
                     '<div class="col-3"><span>' + element.categoria + '</span></div>' +
                     '<div class="col-4"><span>' + element.descricao + '</span></div>' +
-                    '<div class="col-5"><a href="#"><img src="./assets/close.svg" /></a><a href="#"><img src="./assets/cog.svg" /></a></div>' +
+                    `<div class="col-5"><a href="#" onclick="deleteMoviment(${element.id})"><img src="./assets/close.svg" /></a><a href="#"><img src="./assets/cog.svg" /></a></div>` +
                     '<div class="col-6"><span>' + "R$" + Number(element.valor).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") + '</span></div>' +
                     '</div>'
                 );
@@ -28,6 +28,22 @@ function getMoviment(){
             document.getElementById("items").innerHTML = movimentacao;
             document.getElementById("sum").innerHTML = "R$" + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
         });
+}
+
+function deleteMoviment(id){
+    let formdata = new FormData();
+    formdata.append("id", id);
+
+    let requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost/cloudcont/backend/view/MovimentDel.php", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 }
 
 function getCategories(tag){
