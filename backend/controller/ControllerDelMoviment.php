@@ -1,5 +1,5 @@
 <?php
-require_once("../model/delMoviment.php");
+require_once("../model/movimentDelete.php");
 
 class delMovimentController
 {

@@ -1,5 +1,5 @@
 <?php
-require_once("../model/getCat.php");
+require_once("../model/categoryGet.php");
 class listarController
 {
 

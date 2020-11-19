@@ -1,5 +1,5 @@
 <?php
-require_once("../model/getMov.php");
+require_once("../model/movimentGet.php");
 class listarController
 {
 

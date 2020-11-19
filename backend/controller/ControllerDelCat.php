@@ -1,5 +1,5 @@
 <?php
-require_once("../model/delCat.php");
+require_once("../model/categoryDelete.php");
 
 class delCatController
 {

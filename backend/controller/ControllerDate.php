@@ -1,5 +1,5 @@
 <?php
-require_once("../model/getDate.php");
+require_once("../model/dateGet.php");
 class listarController
 {
 

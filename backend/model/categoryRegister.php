@@ -16,8 +16,8 @@ class RegCat
         $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
     }
 
-    public function insertCat($string)
+    public function insertCat($description)
     {
-        $this->mysqli->query("INSERT INTO categoria (nome) values ('$string')");
+        $this->mysqli->query("INSERT INTO categoria (nome) values ('$description')");
     }
 }

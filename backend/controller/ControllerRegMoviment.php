@@ -1,5 +1,5 @@
 <?php
-require_once("../model/regMoviment.php");
+require_once("../model/movimentRegister.php");
 
 class regMovController
 {

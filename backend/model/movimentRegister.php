@@ -43,9 +43,7 @@ class RegMoviment
         $this->mes = $t[1];
         $this->ano = $t[0];
 
-        $this->mysqli->query("
-            INSERT INTO lc_movimento (dia,mes,ano,tipo,categoria,descricao,valor) 
-            values ('$this->dia','$this->mes','$this->ano','$this->tipo','$this->categoria','$this->descricao','$this->value')
-            ");
+        $this->mysqli->query("INSERT INTO lc_movimento (dia,mes,ano,tipo,categoria,descricao,valor) 
+                                values ('$this->dia','$this->mes','$this->ano','$this->tipo','$this->categoria','$this->descricao','$this->value')");
     }
 }
