@@ -10,8 +10,8 @@ class delMovimentController
         $this->delete = new DelMoviment();
     }
 
-    public function deletar()
+    public function deletar($id)
     {
-        $this->delete->deleteMoviment();
+        $this->delete->deleteMoviment($id);
     }
 }

@@ -10,8 +10,8 @@ class delCatController
         $this->delete = new DelCat();
     }
 
-    public function deletar()
+    public function deletar($id)
     {
-        $this->delete->deleteCat();
+        $this->delete->deleteCat($id);
     }
 }

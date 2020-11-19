@@ -10,8 +10,8 @@ class regCatController
         $this->description = new RegCat();
     }
 
-    public function incluir()
+    public function incluir($description)
     {
-        $this->description->insertCat();
+        $this->description->insertCat($description);
     }
 }
