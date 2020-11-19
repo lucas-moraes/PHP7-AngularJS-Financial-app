@@ -1,6 +1,6 @@
 <?php
 
-require_once("../controller/ControllerListar.php");
+require_once("../controller/ControllerGetMoviment.php");
 
 $list = new listarController();
 
