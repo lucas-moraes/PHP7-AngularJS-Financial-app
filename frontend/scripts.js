@@ -3,9 +3,8 @@
 let listCategory = [];
 
 window.addEventListener('load', function () {
-
     getMoviment();
-    getCategories('option');
+    getCategories('start');
     getDate();
 });
 
@@ -61,7 +60,11 @@ function registerMoviment(){
     };
     
     fetch("http://localhost/cloudcont/backend/view/MovimentReg.php", requestOptions)
-      .then(console.log('ok'))
+      .then(
+          getMoviment(),
+          fadeOut('screen_register',0.5, 'none'), 
+          fadeIn('screen_movimentation', 0.5, 'block')
+        )
       .catch(error => console.log('error', error));
 }
 
@@ -84,14 +87,44 @@ function getCategories(tag){
     let categories1 = document.getElementById('categories1');
     let categories2 = document.getElementById('categories2');
 
-    if(listCategory.length <= 0){
-    fetch('http://localhost/cloudcont/backend/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
-        .then(res => { return res.json(); })
-        .then(data => {
-            listCategory = data.categoria;
-            switch (tag) {
-                case 'option':
-                    categoria = data.categoria.map(function (item) {
+    switch (tag) {
+        case 'option':
+            categoria = listCategory.map(function (item) {
+                return (
+                    `<option id="${item.id}">` + item.nome + `</option>`
+                );
+            }).join('');
+            categories1.innerHTML = categoria;
+            categories2.innerHTML = categoria;
+            let option = document.createElement('option');
+            option.text = 'Selecione';
+            option.value = '';
+            option.selected = true;
+            let select1 = document.getElementById('categories1');
+            select1.appendChild(option);
+            let select2 = document.getElementById('categories2');
+            select2.appendChild(option);
+            break;
+        case 'span':
+            let categories = listCategory.map(function (element){
+                return(
+                    '<div class="row" style="justify-content: space-between">' +
+                            '<span>'+
+                                element.nome +
+                            '</span>'+
+                            `<a href="#" onclick="deleteCategory(${element.id})"><img src="./assets/close.svg"></a>`+
+                    '</div>'            
+                )
+            }).join('');
+            document.getElementById("categories3").innerHTML = categories;
+            break;
+        case 'start':
+            fetch('http://localhost/cloudcont/backend/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
+                .then(res => { return res.json(); })
+                .then(data => {
+                    listCategory = data.categoria;
+                    
+                    let categoria = listCategory.map(function (item) {
                         return (
                             `<option id="${item.id}">` + item.nome + `</option>`
                         );
@@ -103,56 +136,51 @@ function getCategories(tag){
                     option.selected = true;
                     let select = document.getElementById('categories1');
                     select.appendChild(option);
-                    break;
-                case 'span':
+
                     let categories = listCategory.map(function (element){
                         return(
                             '<div class="row" style="justify-content: space-between">' +
                                     '<span>'+
                                         element.nome +
                                     '</span>'+
-                                    '<a href="#"><img src="./assets/close.svg"></a>'+
+                                    `<a href="#" onclick="deleteCategory(${element.id})"><img src="./assets/close.svg"></a>`+
                             '</div>'            
                         )
                     }).join('');
                     document.getElementById("categories3").innerHTML = categories;
-                    break;
-            }
-        });
-    } else {
-        switch (tag) {
-            case 'option':
-                categoria = listCategory.map(function (item) {
-                    return (
-                        `<option id="${item.id}">` + item.nome + `</option>`
-                    );
-                }).join('');
-                categories1.innerHTML = categoria;
-                categories2.innerHTML = categoria;
-                let option = document.createElement('option');
-                option.text = 'Selecione';
-                option.value = '';
-                option.selected = true;
-                let select1 = document.getElementById('categories1');
-                select1.appendChild(option);
-                let select2 = document.getElementById('categories2');
-                select2.appendChild(option);
-                break;
-            case 'span':
-                let categories = listCategory.map(function (element){
-                    return(
-                        '<div class="row" style="justify-content: space-between">' +
-                                '<span>'+
-                                    element.nome +
-                                '</span>'+
-                                '<a href="#"><img src="./assets/close.svg"></a>'+
-                        '</div>'            
-                    )
-                }).join('');
-                document.getElementById("categories3").innerHTML = categories;
-                break;
-        }
+                });    
     }
+}
+
+function registerCategory(){
+    let category = document.getElementById("categoryDescription").value;
+    let formdata = new FormData();
+    formdata.append("description", category);
+
+    let requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+    };
+
+    fetch("http://localhost/cloudcont/backend/view/CategoryReg.php", requestOptions)
+        .then(getCategories('start'))
+        .catch(error => console.log('error', error));
+}
+
+function deleteCategory(id){
+    var formdata = new FormData();
+    formdata.append("id", id);
+    
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+    
+    fetch("http://localhost/cloudcont/backend/view/CategoryDel.php", requestOptions)
+      .then(getCategories('start'))
+      .catch(error => console.log('error', error));
 }
 
 function getDate(){
@@ -163,7 +191,7 @@ function getDate(){
             var listaMes = document.getElementById('mes');
             mes = data.mes.map(function (item) {
                 return (
-                    '<option>' + item.mes + '</option>'
+                    `<option id="${item.mes}">` + item.mes + '</option>'
                 );
             }).join('');
             listaMes.innerHTML = mes;
