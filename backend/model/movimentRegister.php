@@ -24,14 +24,14 @@ class RegMoviment
         $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
     }
 
-    public function insertMoviment($date, $type, $category, $description, $valor)
+    public function insertMoviment($date, $type, $category, $description, $value)
     {
 
         $this->diamesano = $date;
         $this->tipo = $type;
         $this->categoria = $category;
         $this->descricao = $description;
-        $this->valor = str_replace(',', '.', str_replace('.', '', $valor));
+        $this->valor = str_replace(',', '.', str_replace('.', '', $value));
         if ($this->tipo == 'saida') {
             $this->value = -$this->valor;
         } else {

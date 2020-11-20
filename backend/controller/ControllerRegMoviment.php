@@ -10,8 +10,8 @@ class regMovController
         $this->moviment = new RegMoviment();
     }
 
-    public function incluir($date, $type, $category, $description, $valor)
+    public function incluir($date, $type, $category, $description, $value)
     {
-        $this->moviment->insertMoviment($date, $type, $category, $description, $valor);
+        $this->moviment->insertMoviment($date, $type, $category, $description, $value);
     }
 }
