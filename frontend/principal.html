@@ -80,24 +80,23 @@
                             </div>
                             <div>
                                 <label>Movimento</label>
-                                <select>
-                                    <option>Entrada de dinheiro</option>
-                                    <option>Saída de dinheiro</option>
+                                <select id="type">
+                                    <option id="entrada">Entrada de dinheiro</option>
+                                    <option id="saida">Saída de dinheiro</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div>
                                 <label>Valor</label>
-                                <input type="text" style="width: 80px;" onKeyPress="return(moeda(this, '.', ',', event))" maxlength="5" pattern=[0-9]/>
+                                <input id="value" type="text" style="width: 80px;" onKeyPress="return(moeda(this, '.', ',', event))" maxlength="5" pattern=[0-9]/>
                             </div>
                             <div>
                                 <label>Descrição</label>
-                                <input style="width: 283px;" />
-                                
+                                <input id="description" style="width: 283px;" />                                
                             </div>
                             <div>
-                                <li class="button" style="margin-top: 15px;" onclick="insertMoviment()">
+                                <li class="button" style="margin-top: 15px;" onclick="registerMoviment()">
                                     <a class="tab-links">Registrar</a>
                                 </li>
                             </div>

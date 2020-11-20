@@ -30,6 +30,41 @@ function getMoviment(){
         });
 }
 
+function registerMoviment(){
+    let date = document.getElementById('date').value; 
+    let categories = document.getElementById('categories2');
+    categories = categories.options;
+    let categoryId = categories[categories.selectedIndex].id;
+    let type = document.getElementById('type');
+    type = type.options;
+    let typeId = type[type.selectedIndex].id;
+    let description = document.getElementById('description').value;
+    let value = document.getElementById('value').value;
+
+    const myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Content-Type", "application/json");
+    
+    let formdata = new FormData();
+    formdata.append("date", date);
+    formdata.append("type", typeId);
+    formdata.append("category", categoryId);
+    formdata.append("description", description);
+    formdata.append("value", value);
+
+    let requestOptions = {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow'
+    };
+    
+    fetch("http://localhost/cloudcont/backend/view/MovimentReg.php", requestOptions)
+      .then(console.log('ok'))
+      .catch(error => console.log('error', error));
+}
+
 function deleteMoviment(id){
     let formdata = new FormData();
     formdata.append("id", id);
@@ -41,8 +76,7 @@ function deleteMoviment(id){
     };
 
     fetch("http://localhost/cloudcont/backend/view/MovimentDel.php", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
+        .then(getMoviment())
         .catch(error => console.log('error', error));
 }
 
@@ -59,7 +93,7 @@ function getCategories(tag){
                 case 'option':
                     categoria = data.categoria.map(function (item) {
                         return (
-                            `<option>` + item.nome + `</option>`
+                            `<option id="${item.id}">` + item.nome + `</option>`
                         );
                     }).join('');
                     categories1.innerHTML = categoria;
@@ -90,7 +124,7 @@ function getCategories(tag){
             case 'option':
                 categoria = listCategory.map(function (item) {
                     return (
-                        `<option>` + item.nome + `</option>`
+                        `<option id="${item.id}">` + item.nome + `</option>`
                     );
                 }).join('');
                 categories1.innerHTML = categoria;
@@ -156,12 +190,6 @@ function getDate(){
 
         });
 
-}
-
-function insertMoviment(){
-    let data = document.getElementById('date').value;
-
-    console.log(data);
 }
 
 function openTab (evt, tabName) {
