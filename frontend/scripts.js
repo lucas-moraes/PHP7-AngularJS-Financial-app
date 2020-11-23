@@ -14,12 +14,12 @@ function getMoviment(){
         .then(data => {
             var movimentacao = data.movimentacao.map(function (element) {
                 return (
-                    `<div class="row" id="${element.id}"/>` +
+                    `<div class="row"/>` +
                     '<div class="col-1"><span>' + element.dia + '/' + element.mes + '/' + element.ano + '</span></div>' +
                     '<div class="col-2"><span>' + element.tipo + '</span></div>' +
                     '<div class="col-3"><span>' + element.categoria + '</span></div>' +
                     '<div class="col-4"><span>' + element.descricao + '</span></div>' +
-                    `<div class="col-5"><a href="#" onclick="deleteMoviment(${element.id})"><img src="./assets/close.svg" /></a><a href="#"><img src="./assets/cog.svg" /></a></div>` +
+                    `<div class="col-5"><a href="#" onclick="deleteMoviment(${element.id})"><img src="./assets/close.svg" /></a><a href="#" onclick=";fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex');"><img src="./assets/cog.svg" /></a></div>` +
                     '<div class="col-6"><span>' + "R$" + Number(element.valor).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") + '</span></div>' +
                     '</div>'
                 );
