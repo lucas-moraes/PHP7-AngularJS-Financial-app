@@ -19,7 +19,7 @@ function getMoviment(){
                     '<div class="col-2"><span>' + element.tipo + '</span></div>' +
                     '<div class="col-3"><span>' + element.categoria + '</span></div>' +
                     '<div class="col-4"><span>' + element.descricao + '</span></div>' +
-                    `<div class="col-5"><a href="#" onclick="deleteMoviment(${element.id})"><img src="./assets/close.svg" /></a><a href="#" onclick=";fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex');"><img src="./assets/cog.svg" /></a></div>` +
+                    `<div class="col-5"><a href="#" onclick="deleteMoviment(${element.id})"><img src="./assets/close.svg" /></a><a href="#" onclick="movimentGetById(${element.id}); getCategories('option'); fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex');"><img src="./assets/cog.svg" /></a></div>` +
                     '<div class="col-6"><span>' + "R$" + Number(element.valor).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") + '</span></div>' +
                     '</div>'
                 );
@@ -27,6 +27,78 @@ function getMoviment(){
             document.getElementById("items").innerHTML = movimentacao;
             document.getElementById("sum").innerHTML = "R$" + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
         });
+}
+
+function setMoviment(id){
+    let date = document.getElementById('date').value; 
+    let categories = document.getElementById('categories2').value;
+    let type = document.getElementById('type').value;
+    let description = document.getElementById('description').value;
+    let value = document.getElementById('value').value;
+    
+    const myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Content-Type", "application/json");
+
+    let formdata = new FormData();
+    formdata.append("id", id);
+    formdata.append("date", date);
+    formdata.append("type", type);
+    formdata.append("category", categories);
+    formdata.append("description", description);
+    formdata.append("value", value);
+
+    let requestOptions = {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost/cloudcont/backend/view/MovimentSet.php", requestOptions)
+        .then(
+            res => {return res.json()},
+            getMoviment(),
+            setButton('reg', 0),
+            fadeOut('screen_register',0.5, 'none'),
+            fadeIn('screen_movimentation', 0.5, 'block')
+        )
+        .then(data => console.log(data))
+        .catch(error => console.log('error', error));
+}
+
+function movimentGetById(id){
+    let formdata = new FormData();
+    formdata.append("id", id);
+
+    let requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+    };
+
+    fetch("http://localhost/cloudcont/backend/view/MovimentGetById.php", requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('date').value = `${data.ano}-${data.mes}-${data.dia < 10 ? ('0' + data.dia) : (data.dia)}`;
+            document.getElementById('categories2').value = data.categoria;
+            document.getElementById('type').value = data.tipo;
+            document.getElementById('description').value = data.descricao;
+            document.getElementById('value').value = Number(data.valor).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
+        })
+        setButton('set', id)
+}
+
+function setButton(arg, id){
+    switch (arg) {
+        case 'set':
+            document.getElementById('setButton').innerHTML = `<li id="setButton" class="button" style="margin-top: 15px;" onclick="setMoviment(${id})"><a class="tab-links">Alterar</a></li>`;
+            break;
+        case 'reg':
+            document.getElementById('setButton').innerHTML = '<li id="setButton" class="button" style="margin-top: 15px;" onclick="registerMoviment()"><a class="tab-links">Registrar</a></li>';
+            break; 
+    }
 }
 
 function registerMoviment(){
@@ -91,7 +163,7 @@ function getCategories(tag){
         case 'option':
             categoria = listCategory.map(function (item) {
                 return (
-                    `<option id="${item.id}">` + item.nome + `</option>`
+                    `<option value="${item.id}">` + item.nome + `</option>`
                 );
             }).join('');
             categories1.innerHTML = categoria;
@@ -126,7 +198,7 @@ function getCategories(tag){
                     
                     let categoria = listCategory.map(function (item) {
                         return (
-                            `<option id="${item.id}">` + item.nome + `</option>`
+                            `<option value="${item.id}">` + item.nome + `</option>`
                         );
                     }).join('');
                     categories1.innerHTML = categoria;

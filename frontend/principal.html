@@ -64,7 +64,7 @@
                         <div class="titulo-label">
                             <span class="titulo">Adicionar Movimento</span>
                             <a href="#"
-                                onclick="fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block');"><img
+                                onclick="setButton('reg');fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block');"><img
                                     src="./assets/close.svg"></a>
                         </div>
                         <div class="row" style="margin-bottom: 10px;">
@@ -81,8 +81,8 @@
                             <div>
                                 <label>Movimento</label>
                                 <select id="type">
-                                    <option id="entrada">Entrada de dinheiro</option>
-                                    <option id="saida">Saída de dinheiro</option>
+                                    <option value="entrada">Entrada de dinheiro</option>
+                                    <option value="saida">Saída de dinheiro</option>
                                 </select>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <label>Descrição</label>
                                 <input id="description" style="width: 283px;" />                                
                             </div>
-                            <div>
+                            <div id="setButton">
                                 <li class="button" style="margin-top: 15px;" onclick="registerMoviment()">
                                     <a class="tab-links">Registrar</a>
                                 </li>
