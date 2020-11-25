@@ -60,6 +60,7 @@ function setMoviment(id){
         .then(
             res => {return res.json()},
             getMoviment(),
+            getCategories('start'),
             setButton('reg', 0),
             fadeOut('screen_register',0.5, 'none'),
             fadeIn('screen_movimentation', 0.5, 'block')
