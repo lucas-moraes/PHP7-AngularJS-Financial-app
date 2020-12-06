@@ -472,7 +472,7 @@ function getGroup(){
     };
 
     fetch("http://localhost/cloudcont/backend/view/MovimentGetGroup.php", requestOptions)
-        .then(res => {return res.json()})
+        .then(res => { return res.json(); })
         .then(data => {
             let resumoMensal = data.resume.map(function(element) {
                 return (
@@ -483,9 +483,8 @@ function getGroup(){
                     )
             } 
             ).join('');
-            let resumoTotal = data.total;
             document.getElementById("resumeGroup").innerHTML = resumoMensal;
-            document.getElementById("groupTotal").innerHTML  = `<div class="lineGroup ${resumoTotal > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(resumoTotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
+            document.getElementById("groupTotal").innerHTML  = `<div class="lineGroup ${data.totalResume > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(data.totalResume).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
         
             let mensalGroup  = data.groupMonth.map(function(item) {
                 return  (
@@ -510,6 +509,6 @@ function getGroup(){
                 )
             }).join('');
             document.getElementById('categorieGroup').innerHTML = categoryGroup;
-            document.getElementById("categorieTotal").innerHTML  = `<div class="lineGroup ${data.total > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
+            document.getElementById("categorieTotal").innerHTML  = `<div class="lineGroup ${data.totalCategoriesByYear > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(data.totalCategoriesByYear).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
         });
 }
