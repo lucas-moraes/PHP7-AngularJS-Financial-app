@@ -61,7 +61,7 @@ class GetGroup
         $out = $saida->fetch_array(MYSQLI_ASSOC);
         $resultado = ($in['entrada'] - $out['saida']);
 
-        $data_one['total'] = $resultado;
+        $data_one['totalResume'] = $resultado;
 
         return $data_one;
     }
@@ -98,7 +98,7 @@ class GetGroup
         $out = $saida->fetch_array(MYSQLI_ASSOC);
         $resultado = ($in['entrada'] - $out['saida']);
 
-        $data_two['total'] = $resultado;
+        $data_two['totalCategoriesByYear'] = $resultado;
 
         return $data_two;
     }
