@@ -474,7 +474,7 @@ function getGroup(){
     fetch("http://localhost/cloudcont/backend/view/MovimentGetGroup.php", requestOptions)
         .then(res => { return res.json(); })
         .then(data => {
-            let resumoMensal = data[0].resume.map(function(element) {
+            let resumoMensal = data.resume.map(function(element) {
                 return (
                     `<div class="lineGroup ${element.valor > 0 ? 'positivo' : 'negativo'}">`+
                         '<div class="col-6"><span>' + element.categoria + '</span></div>' +
@@ -483,11 +483,10 @@ function getGroup(){
                     )
             } 
             ).join('');
-            let resumoTotal = data[0].total;
             document.getElementById("resumeGroup").innerHTML = resumoMensal;
-            document.getElementById("groupTotal").innerHTML  = `<div class="lineGroup ${resumoTotal > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(resumoTotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
+            document.getElementById("groupTotal").innerHTML  = `<div class="lineGroup ${data.totalResume > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(data.totalResume).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
         
-            let mensalGroup  = data[2].groupMonth.map(function(item) {
+            let mensalGroup  = data.groupMonth.map(function(item) {
                 return  (
                     `<div class="lineGroup ${item.valor > 0 ? 'positivo' : 'negativo'}">`+
                         '<div class="col-6" style="justify-content: start"><span>'+
@@ -501,7 +500,7 @@ function getGroup(){
             }).join('');
             document.getElementById('mensalGroup').innerHTML = mensalGroup;
             
-            let categoryGroup = data[1].categoriesByYear.map(function(value) {
+            let categoryGroup = data.categoriesByYear.map(function(value) {
                 return (
                     `<div class="lineGroup ${value.valor > 0 ? 'positivo' : 'negativo'}">`+
                         '<div class="col-6"><span>' + value.categoria + '</span></div>' +
@@ -510,6 +509,6 @@ function getGroup(){
                 )
             }).join('');
             document.getElementById('categorieGroup').innerHTML = categoryGroup;
-            document.getElementById("categorieTotal").innerHTML  = `<div class="lineGroup ${data[1].total > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(data[1].total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
+            document.getElementById("categorieTotal").innerHTML  = `<div class="lineGroup ${data.totalCategoriesByYear > 0 ? 'positivo':'negativo'}">`+ '<div class="col-6"><span>Total</span></div>'+'<div class="col-6"><span>'+ 'R$ ' + Number(data.totalCategoriesByYear).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") +'</span></div>' +'</div>'
         });
 }
