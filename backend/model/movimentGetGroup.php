@@ -100,7 +100,6 @@ class GetGroup
 
         $data_two['total'] = $resultado;
 
-
         return $data_two;
     }
 
