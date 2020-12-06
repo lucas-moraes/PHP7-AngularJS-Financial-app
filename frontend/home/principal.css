@@ -250,6 +250,7 @@ input:after {
 .button {
   appearance: button;
   float: left;
+  text-align: center;
   border: 1px solid #0000000f;
   outline: none;
   cursor: pointer;
