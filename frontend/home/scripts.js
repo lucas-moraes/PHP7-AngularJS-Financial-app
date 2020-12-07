@@ -45,7 +45,7 @@ function filterMoviment(){
             if(data){
                 var movimentacao = data.moviment.map(function (element) {
                     return (
-                        `<div class="row"/>` +
+                        `<div class="row ${element.valor > 0 ? "positivo" : "negativo"} "/>` +
                         '<div class="col-1"><span>' + element.dia + '/' + element.mes + '/' + element.ano + '</span></div>' +
                         '<div class="col-2"><span>' + element.tipo + '</span></div>' +
                         '<div class="col-3"><span>' + element.categoria + '</span></div>' +
