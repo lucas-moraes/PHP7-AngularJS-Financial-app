@@ -15,17 +15,25 @@ let monthTranslation = {
 
 let listCategory = [];
 
+let d = new Date();
+let mesAtual = d.getMonth() + 1;
+let anoAtual = d.getFullYear(); 
+
 window.addEventListener('load', function () {
     getMoviment();
     getCategories('start');
     getDate();
-    getGroup();
+    if(mesAtual && anoAtual){
+        getGroup(mesAtual, anoAtual);
+    }    
 });
 
 function filterMoviment(){
     let categories = document.getElementById('categories1').value;
     let month = document.getElementById('mes').value;
     let year = document.getElementById('ano').value;
+
+    getGroup(month, year);
 
     let formdata = new FormData();
     formdata.append("category", categories);
@@ -59,6 +67,8 @@ function filterMoviment(){
                 document.getElementById("sum").innerHTML = "R$ " + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
                 resetFilterButton('reset');
             }
+            document.getElementById('resumoMes').innerHTML = `<span>`+translateMonth(data.moviment[0].mes)+`</span>`;
+
         })
         .catch(error => console.log('error', error));
 }
@@ -81,6 +91,7 @@ function getMoviment(){
             }).join('');
             document.getElementById("items").innerHTML = movimentacao;
             document.getElementById("sum").innerHTML = `<span class="${data.total > 0 ? "positivo" : "negativo"}">` +"R$ " + Number(data.total).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.")+'</span>';
+            document.getElementById('resumoMes').innerHTML = `<span>`+translateMonth(data.movimentacao[0].mes)+`</span>`;
         });
 }
 
@@ -89,6 +100,7 @@ function resetMoviment(){
     document.getElementById('mes').value = '';
     document.getElementById('ano').value = '';
     getMoviment();
+    getGroup(mesAtual, anoAtual);
     resetFilterButton('filter');
 }
 
@@ -128,7 +140,6 @@ function setMoviment(id){
             fadeOut('screen_register',0.5, 'none'),
             fadeIn('screen_movimentation', 0.5, 'block')
         )
-        .then(data => console.log(data))
         .catch(error => console.log('error', error));
 }
 
@@ -327,11 +338,13 @@ function deleteCategory(id){
       .catch(error => console.log('error', error));
 }
 
+function translateMonth(arg){
+    return arg.replace(arg, x=>monthTranslation[x])
+}
+
 function getDate(){
     document.getElementById('date').value = new Date().toISOString().substring(0, 10);
-    function translateMonth(arg){
-        return arg.replace(arg, x=>monthTranslation[x])
-    }
+
     fetch('http://localhost/cloudcont/backend/view/DateGet.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
@@ -459,10 +472,10 @@ function moeda(number, dot, comma, event) {
     return !1
 }
 
-function getGroup(){
+function getGroup(mes, ano){
     var formdata = new FormData();
-    formdata.append("month", "11");
-    formdata.append("year", "2020");
+    formdata.append("month", mes);
+    formdata.append("year", ano);
 
     var requestOptions = {
         method: 'POST',
