@@ -16,16 +16,24 @@ let monthTranslation = {
 let listCategory = [];
 
 window.addEventListener('load', function () {
+    let d = new Date();
+    let mes = d.getMonth() + 1;
+    let ano = d.getFullYear(); 
+
     getMoviment();
     getCategories('start');
     getDate();
-    getGroup();
+    if(mes && ano){
+        getGroup(mes, ano);
+    }    
 });
 
 function filterMoviment(){
     let categories = document.getElementById('categories1').value;
     let month = document.getElementById('mes').value;
     let year = document.getElementById('ano').value;
+
+    getGroup(month, year);
 
     let formdata = new FormData();
     formdata.append("category", categories);
@@ -60,6 +68,10 @@ function filterMoviment(){
                 resetFilterButton('reset');
             }
             document.getElementById('resumoMes').innerHTML = `<span>`+translateMonth(data.moviment[0].mes)+`</span>`;
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/frontend
         })
         .catch(error => console.log('error', error));
 }
@@ -130,7 +142,6 @@ function setMoviment(id){
             fadeOut('screen_register',0.5, 'none'),
             fadeIn('screen_movimentation', 0.5, 'block')
         )
-        .then(data => console.log(data))
         .catch(error => console.log('error', error));
 }
 
@@ -463,6 +474,7 @@ function moeda(number, dot, comma, event) {
     return !1
 }
 
+<<<<<<< HEAD
 function getGroup(month, year){
     let d = new Date();
     if(!month){
@@ -475,6 +487,12 @@ function getGroup(month, year){
     var formdata = new FormData();
     formdata.append("month", month);
     formdata.append("year", year);
+=======
+function getGroup(mes, ano){
+    var formdata = new FormData();
+    formdata.append("month", mes);
+    formdata.append("year", ano);
+>>>>>>> feature/frontend
 
     var requestOptions = {
         method: 'POST',
