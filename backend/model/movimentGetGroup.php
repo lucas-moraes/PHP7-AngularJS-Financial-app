@@ -22,18 +22,8 @@ class GetGroup
         $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
     }
 
-    public function getGroupCategoriesByMonthAndYear($mes, $ano)
+    public function getGroupCategoriesByMonthAndYear($month, $year)
     {
-        $month = date('m');
-        $year = date('Y');
-
-        if (!empty($mes)) {
-            $this->month = $mes;
-        }
-        if (!empty($ano)) {
-            $this->year = $ano;
-        }
-
         $this->json_one = $this->mysqli->query("SELECT * FROM lc_movimento WHERE mes='$month' && ano='$year' GROUP BY categoria ORDER BY (valor >=0) desc");
 
         $data_one['mes'] = $month;
