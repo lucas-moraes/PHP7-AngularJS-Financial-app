@@ -103,7 +103,7 @@ function resetMoviment(){
     document.getElementById('mes').value = '';
     document.getElementById('ano').value = '';
     getMoviment();
-    getGroup(mesAtual, anoAtual); console.log(mesAtual, anoAtual)
+    getGroup(mesAtual, anoAtual);
     resetFilterButton('filter');
 }
 
