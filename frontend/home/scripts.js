@@ -15,6 +15,10 @@ let monthTranslation = {
 
 let listCategory = [];
 
+let d = new Date();
+let mesAtual = d.getMonth() + 1;
+let anoAtual = d.getFullYear(); 
+
 window.addEventListener('load', function () {
     let d = new Date();
     let mes = d.getMonth() + 1;
@@ -23,8 +27,8 @@ window.addEventListener('load', function () {
     getMoviment();
     getCategories('start');
     getDate();
-    if(mes && ano){
-        getGroup(mes, ano);
+    if(mesAtual && anoAtual){
+        getGroup(mesAtual, anoAtual);
     }    
 });
 
@@ -99,6 +103,7 @@ function resetMoviment(){
     document.getElementById('mes').value = '';
     document.getElementById('ano').value = '';
     getMoviment();
+    getGroup(mesAtual, anoAtual); console.log(mesAtual, anoAtual)
     resetFilterButton('filter');
 }
 
