@@ -68,10 +68,6 @@ function filterMoviment(){
                 resetFilterButton('reset');
             }
             document.getElementById('resumoMes').innerHTML = `<span>`+translateMonth(data.moviment[0].mes)+`</span>`;
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/frontend
         })
         .catch(error => console.log('error', error));
 }
@@ -474,25 +470,10 @@ function moeda(number, dot, comma, event) {
     return !1
 }
 
-<<<<<<< HEAD
-function getGroup(month, year){
-    let d = new Date();
-    if(!month){
-        month = d.getMonth();
-    }
-    if(!year){
-        year = d.getFullYear();
-    }
-
-    var formdata = new FormData();
-    formdata.append("month", month);
-    formdata.append("year", year);
-=======
 function getGroup(mes, ano){
     var formdata = new FormData();
     formdata.append("month", mes);
     formdata.append("year", ano);
->>>>>>> feature/frontend
 
     var requestOptions = {
         method: 'POST',
