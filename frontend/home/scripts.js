@@ -51,7 +51,7 @@ function filterMoviment(){
         redirect: 'follow'
     };
 
-    fetch("http://localhost/cloudcont/backend/view/MovimentFilter.php", requestOptions)
+    fetch("../../backend/view/MovimentFilter.php", requestOptions)
         .then(response => { return response.json()} )
         .then(data => {
             if(data){
@@ -77,7 +77,7 @@ function filterMoviment(){
 }
 
 function getMoviment(){
-    fetch('http://localhost/cloudcont/backend/view/MovimentGet.php', { method: 'get', mode: 'no-cors' })
+    fetch('../../backend/view/MovimentGet.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
             var movimentacao = data.movimentacao.map(function (element) {
@@ -134,7 +134,7 @@ function setMoviment(id){
         redirect: 'follow'
     };
 
-    fetch("http://localhost/cloudcont/backend/view/MovimentSet.php", requestOptions)
+    fetch("../../backend/view/MovimentSet.php", requestOptions)
         .then(
             res => {return res.json()},
             getMoviment(),
@@ -156,10 +156,10 @@ function movimentGetById(id){
     redirect: 'follow'
     };
 
-    fetch("http://localhost/cloudcont/backend/view/MovimentGetById.php", requestOptions)
+    fetch("../../backend/view/MovimentGetById.php", requestOptions)
         .then(res => res.json())
         .then(data => {
-            document.getElementById('date').value = `${data.ano}-${data.mes}-${data.dia < 10 ? ('0' + data.dia) : (data.dia)}`;
+            document.getElementById('date').value = `${data.ano}-${data.mes < 10 ? ('0' + data.mes) : (data.mes)}-${data.dia < 10 ? ('0' + data.dia) : (data.dia)}`;
             document.getElementById('categories2').value = data.categoria;
             document.getElementById('type').value = data.tipo;
             document.getElementById('description').value = data.descricao;
@@ -172,12 +172,14 @@ function registerMoviment(){
     let date = document.getElementById('date').value; 
     let categories = document.getElementById('categories2');
     categories = categories.options;
-    let categoryId = categories[categories.selectedIndex].id;
+    let categoryId = categories[categories.selectedIndex].value;
     let type = document.getElementById('type');
     type = type.options;
-    let typeId = type[type.selectedIndex].id;
+    let typeId = type[type.selectedIndex].value;
     let description = document.getElementById('description').value;
     let value = document.getElementById('value').value;
+
+    console.log(date, categories, type, typeId, description, value);
 
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -198,7 +200,7 @@ function registerMoviment(){
       redirect: 'follow'
     };
     
-    fetch("http://localhost/cloudcont/backend/view/MovimentReg.php", requestOptions)
+    fetch("../../backend/view/MovimentReg.php", requestOptions)
       .then(
           getMoviment(),
           fadeOut('screen_register',0.5, 'none'), 
@@ -239,7 +241,7 @@ function deleteMoviment(id){
         redirect: 'follow'
     };
 
-    fetch("http://localhost/cloudcont/backend/view/MovimentDel.php", requestOptions)
+    fetch("../../backend/view/MovimentDel.php", requestOptions)
         .then(getMoviment())
         .catch(error => console.log('error', error));
 }
@@ -277,7 +279,7 @@ function getCategories(tag){
             categories3.innerHTML = categories;
             break;
         case 'start':
-            fetch('http://localhost/cloudcont/backend/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
+            fetch('../../backend/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
                 .then(res => { return res.json(); })
                 .then(data => {
                     listCategory = data.categoria;
@@ -321,7 +323,7 @@ function registerCategory(){
     redirect: 'follow'
     };
 
-    fetch("http://localhost/cloudcont/backend/view/CategoryReg.php", requestOptions)
+    fetch("../../backend/view/CategoryReg.php", requestOptions)
         .then(getCategories('start'))
         .catch(error => console.log('error', error));
 }
@@ -336,7 +338,7 @@ function deleteCategory(id){
       redirect: 'follow'
     };
     
-    fetch("http://localhost/cloudcont/backend/view/CategoryDel.php", requestOptions)
+    fetch("../../backend/view/CategoryDel.php", requestOptions)
       .then(getCategories('start'))
       .catch(error => console.log('error', error));
 }
@@ -348,7 +350,7 @@ function translateMonth(arg){
 function getDate(){
     document.getElementById('date').value = new Date().toISOString().substring(0, 10);
 
-    fetch('http://localhost/cloudcont/backend/view/DateGet.php', { method: 'get', mode: 'no-cors' })
+    fetch('../../backend/view/DateGet.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
             var listaMes = document.getElementById('mes');
@@ -487,7 +489,7 @@ function getGroup(mes, ano){
         redirect: 'follow'
     };
 
-    fetch("http://localhost/cloudcont/backend/view/MovimentGetGroup.php", requestOptions)
+    fetch("../../backend/view/MovimentGetGroup.php", requestOptions)
         .then(res => { return res.json(); })
         .then(data => {
             let resumoMensal = data.resume.map(function(element) {
