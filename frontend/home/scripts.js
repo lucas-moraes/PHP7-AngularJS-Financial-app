@@ -136,8 +136,14 @@ function setMoviment(id){
 
     fetch("../../backend/view/MovimentSet.php", requestOptions)
         .then(
-            res => {return res.json()},
-            getMoviment(),
+            () => {          
+                if(document.getElementById('categories1').value 
+                    || document.getElementById('mes').value 
+                    || document.getElementById('ano').value){
+                        filterMoviment();
+                } else {
+                    getMoviment();
+                }},
             getCategories('start'),
             setButton('reg', 0),
             fadeOut('screen_register',0.5, 'none'),
@@ -201,8 +207,14 @@ function registerMoviment(){
     };
     
     fetch("../../backend/view/MovimentReg.php", requestOptions)
-      .then(
-          getMoviment(),
+      .then(() => {
+          if(document.getElementById('categories1').value 
+            || document.getElementById('mes').value 
+            || document.getElementById('ano').value){
+                filterMoviment();
+            } else {
+                getMoviment();
+            }},
           fadeOut('screen_register',0.5, 'none'), 
           fadeIn('screen_movimentation', 0.5, 'block')
         )
@@ -242,7 +254,14 @@ function deleteMoviment(id){
     };
 
     fetch("../../backend/view/MovimentDel.php", requestOptions)
-        .then(getMoviment())
+        .then(
+            ()=> {  if(document.getElementById('categories1').value 
+                        || document.getElementById('mes').value 
+                        || document.getElementById('ano').value){
+                            filterMoviment();
+                        } else {
+                            getMoviment();
+            }})
         .catch(error => console.log('error', error));
 }
 
