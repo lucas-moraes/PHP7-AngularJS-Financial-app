@@ -20,12 +20,8 @@ let mesAtual = d.getMonth() + 1;
 let anoAtual = d.getFullYear(); 
 
 window.addEventListener('load', function () {
-    let d = new Date();
-    let mes = d.getMonth() + 1;
-    let ano = d.getFullYear(); 
-
     getMoviment();
-    getCategories('start');
+    getCategories('start'); 
     getDate();
     if(mesAtual && anoAtual){
         getGroup(mesAtual, anoAtual);
@@ -51,7 +47,7 @@ function filterMoviment(){
         redirect: 'follow'
     };
 
-    fetch("../../backend/view/MovimentFilter.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentFilter.php", requestOptions)
         .then(response => { return response.json()} )
         .then(data => {
             if(data){
@@ -76,9 +72,9 @@ function filterMoviment(){
         .catch(error => console.log('error', error));
 }
 
-function getMoviment(){
-    fetch('../../backend/view/MovimentGet.php', { method: 'get', mode: 'no-cors' })
-        .then(res => { return res.json(); })
+async function getMoviment(){
+    await fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentGet.php', { method: 'get' })
+        .then(res => { return res.json()})
         .then(data => {
             var movimentacao = data.movimentacao.map(function (element) {
                 return (
@@ -134,7 +130,7 @@ function setMoviment(id){
         redirect: 'follow'
     };
 
-    fetch("../../backend/view/MovimentSet.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentSet.php", requestOptions)
         .then(
             () => {          
                 if(document.getElementById('categories1').value 
@@ -162,7 +158,7 @@ function movimentGetById(id){
     redirect: 'follow'
     };
 
-    fetch("../../backend/view/MovimentGetById.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentGetById.php", requestOptions)
         .then(res => res.json())
         .then(data => {
             document.getElementById('date').value = `${data.ano}-${data.mes < 10 ? ('0' + data.mes) : (data.mes)}-${data.dia < 10 ? ('0' + data.dia) : (data.dia)}`;
@@ -206,7 +202,7 @@ function registerMoviment(){
       redirect: 'follow'
     };
     
-    fetch("../../backend/view/MovimentReg.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentReg.php", requestOptions)
       .then(() => {
           if(document.getElementById('categories1').value 
             || document.getElementById('mes').value 
@@ -253,7 +249,7 @@ function deleteMoviment(id){
         redirect: 'follow'
     };
 
-    fetch("../../backend/view/MovimentDel.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentDel.php", requestOptions)
         .then(
             ()=> {  if(document.getElementById('categories1').value 
                         || document.getElementById('mes').value 
@@ -298,7 +294,7 @@ function getCategories(tag){
             categories3.innerHTML = categories;
             break;
         case 'start':
-            fetch('../../backend/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
+            fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
                 .then(res => { return res.json(); })
                 .then(data => {
                     listCategory = data.categoria;
@@ -342,7 +338,7 @@ function registerCategory(){
     redirect: 'follow'
     };
 
-    fetch("../../backend/view/CategoryReg.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/CategoryReg.php", requestOptions)
         .then(getCategories('start'))
         .catch(error => console.log('error', error));
 }
@@ -357,7 +353,7 @@ function deleteCategory(id){
       redirect: 'follow'
     };
     
-    fetch("../../backend/view/CategoryDel.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/CategoryDel.php", requestOptions)
       .then(getCategories('start'))
       .catch(error => console.log('error', error));
 }
@@ -369,7 +365,7 @@ function translateMonth(arg){
 function getDate(){
     document.getElementById('date').value = new Date().toISOString().substring(0, 10);
 
-    fetch('../../backend/view/DateGet.php', { method: 'get', mode: 'no-cors' })
+    fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/DateGet.php', { method: 'get', mode: 'no-cors' })
         .then(res => { return res.json(); })
         .then(data => {
             var listaMes = document.getElementById('mes');
@@ -508,7 +504,7 @@ function getGroup(mes, ano){
         redirect: 'follow'
     };
 
-    fetch("../../backend/view/MovimentGetGroup.php", requestOptions)
+    fetch("http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/MovimentGetGroup.php", requestOptions)
         .then(res => { return res.json(); })
         .then(data => {
             let resumoMensal = data.resume.map(function(element) {
