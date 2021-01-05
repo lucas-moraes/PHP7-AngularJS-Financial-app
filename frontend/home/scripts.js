@@ -154,6 +154,7 @@ function movimentGetById(id){
 
     let requestOptions = {
     method: 'POST',
+    mode: 'no-cors',
     body: formdata,
     redirect: 'follow'
     };
@@ -245,6 +246,7 @@ function deleteMoviment(id){
 
     let requestOptions = {
         method: 'POST',
+        mode: 'no-cors',
         body: formdata,
         redirect: 'follow'
     };
@@ -294,7 +296,7 @@ function getCategories(tag){
             categories3.innerHTML = categories;
             break;
         case 'start':
-            fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/CategoryGet.php', { method: 'get', mode: 'no-cors' })
+            fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/CategoryGet.php', { method: 'get'})
                 .then(res => { return res.json(); })
                 .then(data => {
                     listCategory = data.categoria;
@@ -334,6 +336,7 @@ function registerCategory(){
 
     let requestOptions = {
     method: 'POST',
+    mode: 'no-cors',
     body: formdata,
     redirect: 'follow'
     };
@@ -349,6 +352,7 @@ function deleteCategory(id){
     
     var requestOptions = {
       method: 'POST',
+      mode: 'no-cors',
       body: formdata,
       redirect: 'follow'
     };
@@ -365,7 +369,7 @@ function translateMonth(arg){
 function getDate(){
     document.getElementById('date').value = new Date().toISOString().substring(0, 10);
 
-    fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/DateGet.php', { method: 'get', mode: 'no-cors' })
+    fetch('http://cloudcontapi-env.eba-wti2v2py.us-east-2.elasticbeanstalk.com/view/DateGet.php', { method: 'get' })
         .then(res => { return res.json(); })
         .then(data => {
             var listaMes = document.getElementById('mes');
@@ -500,7 +504,6 @@ function getGroup(mes, ano){
     var requestOptions = {
         method: 'POST',
         body: formdata,
-        mode: 'no-cors',
         redirect: 'follow'
     };
 
