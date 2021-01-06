@@ -43,7 +43,6 @@ function filterMoviment(){
     let requestOptions = {
         method: 'POST',
         body: formdata,
-        mode: 'no-cors',
         redirect: 'follow'
     };
 
