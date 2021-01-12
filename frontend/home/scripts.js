@@ -182,6 +182,8 @@ function registerMoviment(){
     let description = document.getElementById('description').value;
     let value = document.getElementById('value').value;
 
+    console.log(date, categoryId, typeId, description, value);
+
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
