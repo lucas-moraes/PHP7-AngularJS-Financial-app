@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ CategoryDel.php [QSA,L]
+RewriteRule ^(.*)$ CategoryGet.php [QSA,L]
+RewriteRule ^(.*)$ CategoryReg.php [QSA,L]
+RewriteRule ^(.*)$ MovimentDel.php [QSA,L]
+RewriteRule ^(.*)$ MovimentFilter.php [QSA,L]
+RewriteRule ^(.*)$ MovimentGet.php [QSA,L]
+RewriteRule ^(.*)$ MovimentGetById.php [QSA,L]
+RewriteRule ^(.*)$ MovimentGetGroup.php [QSA,L]
+RewriteRule ^(.*)$ MovimentReg.php [QSA,L]
+RewriteRule ^(.*)$ MovimentSet.php [QSA,L]
+</IfModule>
