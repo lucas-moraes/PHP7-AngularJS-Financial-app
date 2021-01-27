@@ -38,7 +38,7 @@ class GetMov
                         break;
                 }
             }
-            $data['movimentacao'][] = array('id' => $row['id'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
+            $data['moviment'][] = array('id' => $row['id'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
         }
 
         $entrada = $this->mysqli->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE tipo='entrada' && mes='$mes_hoje' && ano='$ano_hoje'");
