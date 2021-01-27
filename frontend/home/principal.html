@@ -12,10 +12,10 @@
         <div class="card">
             <ul class="tab">
                 <li class="tab-item active" onclick="openTab(event, 'Mensal')">
-                    <a class="tab-links" href="#">Mensal</a>
+                    <span class="tab-links">Mensal</span>
                 </li>
                 <li class="tab-item" onclick="openTab(event, 'Resumos')">
-                    <a class="tab-links" href="#">Resumos</a>
+                    <span class="tab-links" >Resumos</span>
                 </li>
             </ul>
 
@@ -24,10 +24,10 @@
                     <ul class="tab-menu">
                         <div>
                             <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_register', 0.5, 'flex'); getCategories('option')">
-                                <a class="tab-links" href="#">Movimento</a>
+                                <span class="tab-links" >Movimento</span>
                             </li>
                             <li class="button" onclick="fadeOut('screen_movimentation', 0.5, 'none'); fadeIn('screen_category', 0.5, 'flex'); getCategories('span')">
-                                <a class="tab-links" href="#">Categoria</a>
+                                <span class="tab-links" >Categoria</span>
                             </li>
                         </div>
                         <div>
@@ -42,7 +42,7 @@
                             </select>
                             <div id="filterButton" style="display: unset;">
                                 <li class="button" style="float: right;" onclick="filterMoviment()">
-                                    <a class="tab-links" href="#">Filtrar</a>
+                                    <span class="tab-links" >Filtrar</span>
                                 </li>
                             </div>
                         </div>
@@ -68,9 +68,9 @@
                     <div class="register border">
                         <div class="titulo-label">
                             <span class="titulo">Adicionar Movimento</span>
-                            <a href="#"
+                            <span 
                                 onclick="setButton('reg');fadeOut('screen_register',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block');"><img
-                                    src="../assets/close.svg"></a>
+                                    src="../assets/close.svg"></span>
                         </div>
                         <div class="row" style="margin-bottom: 10px;">
                             <div>
@@ -103,7 +103,7 @@
                             </div>
                             <div id="setButton">
                                 <li class="button" style="margin-top: 15px;" onclick="registerMoviment()">
-                                    <a class="tab-links">Registrar</a>
+                                    <span class="tab-links">Registrar</span>
                                 </li>
                             </div>
                         </div>
@@ -113,14 +113,14 @@
                     <div class="categories border">
                         <div class="titulo-label">
                             <span class="titulo">Adicionar Categoria</span>
-                            <a href="#"
+                            <span 
                                 onclick="fadeOut('screen_category',0.5, 'none'); fadeIn('screen_movimentation', 0.5, 'block')"><img
-                                    src="../assets/close.svg"></a>
+                                    src="../assets/close.svg"></span>
                         </div>
                         <div class="row" style="margin-bottom: 10px;">
                             <input placeholder="Categoria" id="categoryDescription"/>
                             <div class="button" onclick="registerCategory()">
-                                <a class="tab-links" href="#">Adicionar</a>
+                                <span class="tab-links" >Adicionar</span>
                             </div>
                         </div>
                         <div class="row">
