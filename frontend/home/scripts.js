@@ -77,7 +77,7 @@ async function getMoviment () {
     await fetch( 'http://cloudcontapi-env.eba-bdc2ryha.sa-east-1.elasticbeanstalk.com/view/MovimentGet.php', { method: 'get' } )
         .then( res => { return res.json(); } )
         .then( data => {
-            var movimentacao = data.movimentacao.map( function ( element ) {
+            var movimentacao = data.moviment.map( function ( element ) {
                 return (
                     `<div class="row ${ element.valor > 0 ? "positivo" : "negativo" } "/>` +
                     '<div class="col-1"><span>' + element.dia + '/' + element.mes + '/' + element.ano + '</span></div>' +
@@ -91,7 +91,7 @@ async function getMoviment () {
             } ).join( '' );
             document.getElementById( "items" ).innerHTML = movimentacao;
             document.getElementById( "sum" ).innerHTML = `<span class="${ data.total > 0 ? "positivo" : "negativo" }">` + "R$ " + Number( data.total ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." ) + '</span>';
-            document.getElementById( 'resumoMes' ).innerHTML = `<span>` + translateMonth( data.movimentacao[ 0 ].mes ) + `</span>`;
+            document.getElementById( 'resumoMes' ).innerHTML = `<span>` + translateMonth( data.moviment[ 0 ].mes ) + `</span>`;
         } );
 }
 
@@ -184,8 +184,6 @@ function registerMoviment () {
     let typeId = type[ type.selectedIndex ].value;
     let description = document.getElementById( 'description' ).value;
     let value = document.getElementById( 'value' ).value;
-
-    console.log( date, categories, type, typeId, description, value );
 
     console.log( date, categories, type, typeId, description, value );
 
