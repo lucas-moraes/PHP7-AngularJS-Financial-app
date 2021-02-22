@@ -50,9 +50,12 @@ function filterMoviment () {
     fetch( "http://cloudcontapi-env.eba-bdc2ryha.sa-east-1.elasticbeanstalk.com/view/MovimentFilter.php", requestOptions )
         .then( response => { return response.json(); } )
         .then( data => {
-            if ( data )
+            let movimentacao;
+            let resumoMes;
+            let total;
+            if ( data.total || data.moviment )
             {
-                var movimentacao = data.moviment.map( function ( element ) {
+                movimentacao = data.moviment.map( function ( element ) {
                     return (
                         `<div class="row ${ element.valor > 0 ? "positivo" : "negativo" } "/>` +
                         '<div class="col-1"><span>' + element.dia + '/' + element.mes + '/' + element.ano + '</span></div>' +
@@ -64,11 +67,20 @@ function filterMoviment () {
                         '</div>'
                     );
                 } ).join( '' );
-                document.getElementById( "items" ).innerHTML = movimentacao;
-                document.getElementById( "sum" ).innerHTML = "R$ " + Number( data.total ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." );
+                resumoMes = `<span>` + translateMonth( data.moviment[ 0 ].mes ) + `</span>`;
+                total = "R$ " + Number( data.total ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." );
                 resetFilterButton( 'reset' );
             }
-            document.getElementById( 'resumoMes' ).innerHTML = `<span>` + translateMonth( data.moviment[ 0 ].mes ) + `</span>`;
+            else
+            {
+                movimentacao = '<div class="row"><h4>Sem movimentação</h4></div>';
+                resumoMes = '---';
+                total = 'R$ 0,00';
+                resetFilterButton( 'reset' );
+            }
+            document.getElementById( "items" ).innerHTML = movimentacao;
+            document.getElementById( 'resumoMes' ).innerHTML = resumoMes;
+            document.getElementById( "sum" ).innerHTML = total;
         } )
         .catch( error => console.log( 'error', error ) );
 }
@@ -185,8 +197,6 @@ function registerMoviment () {
     let description = document.getElementById( 'description' ).value;
     let value = document.getElementById( 'value' ).value;
 
-    console.log( date, categories, type, typeId, description, value );
-
     const myHeaders = new Headers();
     myHeaders.append( "Accept", "application/json" );
     myHeaders.append( "Content-Type", "application/json" );
@@ -200,6 +210,7 @@ function registerMoviment () {
 
     let requestOptions = {
         method: 'POST',
+        mode: 'no-cors',
         headers: myHeaders,
         body: formdata,
         redirect: 'follow'
@@ -211,9 +222,12 @@ function registerMoviment () {
                 || document.getElementById( 'mes' ).value
                 || document.getElementById( 'ano' ).value )
             {
+                date, typeId, categoryId, description, value = '';
+
                 filterMoviment();
             } else
             {
+                date, typeId, categoryId, description, value = '';
                 getMoviment();
             }
         },
@@ -525,17 +539,38 @@ function getGroup ( mes, ano ) {
     fetch( "http://cloudcontapi-env.eba-bdc2ryha.sa-east-1.elasticbeanstalk.com/view/MovimentGetGroup.php", requestOptions )
         .then( res => { return res.json(); } )
         .then( data => {
-            let resumoMensal = data.resume.map( function ( element ) {
-                return (
-                    `<div class="lineGroup ${ element.valor > 0 ? 'positivo' : 'negativo' }">` +
-                    '<div class="col-6"><span>' + element.categoria + '</span></div>' +
-                    '<div class="col-6"><span>' + "R$ " + Number( element.valor ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." ) + '</span></div>' +
-                    '</div>'
-                );
+            let resumoMensal;
+            let grupoTotal;
+            if ( data.resume )
+            {
+                resumoMensal = data.resume.map( function ( element ) {
+                    return (
+                        `<div class="lineGroup ${ element.valor > 0 ? 'positivo' : 'negativo' }">` +
+                        '<div class="col-6"><span>' + element.categoria + '</span></div>' +
+                        '<div class="col-6"><span>' + "R$ " + Number( element.valor ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." ) + '</span></div>' +
+                        '</div>'
+                    );
+                }
+                ).join( '' );
+                grupoTotal = `<div class="lineGroup ${ data.totalResume > 0 ? 'positivo' : 'negativo' }">` +
+                    '<div class="col-6">' +
+                    '<span>Total</span>' +
+                    '</div>' +
+                    '<div class="col-6">' +
+                    '<span>' +
+                    'R$ ' + Number( data.totalResume ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." ) +
+                    '</span>' +
+                    '</div>' +
+                    '</div>';
             }
-            ).join( '' );
+            else
+            {
+                resumoMensal = '<div class="lineGroup"><div class="col-6">Sem movimento</div></div>';
+                grupoTotal = ' ';
+            }
+
             document.getElementById( "resumeGroup" ).innerHTML = resumoMensal;
-            document.getElementById( "groupTotal" ).innerHTML = `<div class="lineGroup ${ data.totalResume > 0 ? 'positivo' : 'negativo' }">` + '<div class="col-6"><span>Total</span></div>' + '<div class="col-6"><span>' + 'R$ ' + Number( data.totalResume ).toFixed( 2 ).replace( '.', ',' ).replace( /(\d)(?=(\d{3})+\,)/g, "$1." ) + '</span></div>' + '</div>';
+            document.getElementById( "groupTotal" ).innerHTML = grupoTotal;
 
             let mensalGroup = data.groupMonth.map( function ( item ) {
                 return (
