@@ -1,18 +1,10 @@
 <?php
+
 require_once("../includes/init.php");
 
 class RegMoviment
 {
-    protected $mysqli;
-    protected $diamesano;
-    protected $tipo;
-    protected $categoria;
-    protected $descricao;
-    protected $valor;
-    protected $value;
-    protected $dia;
-    protected $mes;
-    protected $ano;
+    protected $db;
 
     public function __construct()
     {
@@ -21,29 +13,31 @@ class RegMoviment
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function insertMoviment($date, $type, $category, $description, $value)
     {
+        $valor = str_replace(',', '.', str_replace('.', '', $value));
 
-        $this->diamesano = $date;
-        $this->tipo = $type;
-        $this->categoria = $category;
-        $this->descricao = $description;
-        $this->valor = str_replace(',', '.', str_replace('.', '', $value));
-        if ($this->tipo == 'saida') {
-            $this->value = -$this->valor;
-        } else {
-            $this->value = $this->valor;
-        }
+        if ($type == 'saida') { $newValue = -$valor; } else { $newValue = $valor; }
 
-        $t = explode("-", $this->diamesano);
-        $this->dia = $t[2];
-        $this->mes = $t[1];
-        $this->ano = $t[0];
+        $t = explode("-", $date);
+        $dia = $t[2];
+        $mes = $t[1];
+        $ano = $t[0];
 
-        $this->mysqli->query("INSERT INTO lc_movimento (dia,mes,ano,tipo,categoria,descricao,valor) 
-                                values ('$this->dia','$this->mes','$this->ano','$this->tipo','$this->categoria','$this->descricao','$this->value')");
+        $stmt = $this->db->prepare('INSERT INTO lc_movimento(dia,mes,ano,tipo,categoria,descricao,valor) VALUES (:dia, :mes, :ano, :tipo, :categoria, :descricao, :valor)');
+        $stmt->bindValue(':dia', $dia, SQLITE3_INTEGER);
+        $stmt->bindValue(':mes', $mes, SQLITE3_INTEGER);
+        $stmt->bindValue(':ano', $ano, SQLITE3_INTEGER);
+        $stmt->bindValue(':tipo', $type, SQLITE3_TEXT);
+        $stmt->bindValue(':categoria', $category, SQLITE3_INTEGER);
+        $stmt->bindValue(':descricao', $description, SQLITE3_TEXT);
+        $stmt->bindValue(':valor', $newValue, SQLITE3_FLOAT);
+
+        $stmt->execute();
+
+        return $stmt->lastInsideRowID();
     }
 }

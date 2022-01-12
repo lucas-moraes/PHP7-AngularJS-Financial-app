@@ -6,7 +6,7 @@ require_once("../includes/init.php");
 class GetCat
 {
 
-    protected $mysqli;
+    protected $db;
 
     public function __construct()
     {
@@ -15,14 +15,14 @@ class GetCat
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function getCat()
     {
-        $query = $this->mysqli->query("SELECT * FROM categoria ORDER BY nome");
+        $query = $this->db->query("SELECT rowid, * FROM categoria ORDER BY descricao");
         while ($row = $query->fetch_assoc()) {
-            $categoria[] = array('id' => $row['id'], 'nome' => $row['nome']);
+            $categoria[] = array('id' => $row['rowid'], 'descricao' => $row['descricao']);
         }
         $data['categoria'] = $categoria;
 

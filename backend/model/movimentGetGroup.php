@@ -6,9 +6,7 @@ require_once("../includes/init.php");
 class GetGroup
 {
 
-    protected $mysqli;
-    protected $json_one;
-    protected $json_two;
+    protected $db;
     protected $json_three;
 
 
@@ -19,21 +17,22 @@ class GetGroup
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function getGroupCategoriesByMonthAndYear($month, $year)
     {
-        $this->json_one = $this->mysqli->query("SELECT categoria, sum(valor) as valor FROM lc_movimento WHERE mes='$month' && ano='$year' GROUP BY categoria ORDER BY (valor > 0) desc");
 
         $data_one['mes'] = $month;
         $data_one['ano'] = $year;
 
-        while ($row = $this->json_one->fetch_array(MYSQLI_ASSOC)) {
+        $result = $this->db->query("SELECT mes, ano, categoria, SUM(valor) AS valor FROM lc_movimento WHERE mes='$month' AND ano='$year' GROUP BY categoria");
+
+        while ($row = $result->fetchArray()) {
             $cat = $row['categoria'];
-            $res = $this->mysqli->query("SELECT nome FROM categoria WHERE id='$cat'");
-            $row2 = mysqli_fetch_array($res);
-            $categoria = $row2['nome'];
+            $res = $this->db->query("SELECT descricao FROM categoria WHERE idCategory='$cat'");
+            $row2 = $res->fetchArray();
+            $categoria = $row2['descricao'];
 
             if ($categoria === NULL) {
                 switch ($cat) {
@@ -45,10 +44,10 @@ class GetGroup
             $data_one['resume'][] = array('categoria' => $categoria, 'valor' => $row['valor']);
         }
 
-        $entrada = $this->mysqli->query("SELECT SUM(IF(valor > 0, valor, 0)) as entrada FROM lc_movimento WHERE tipo='entrada' && mes='$month' && ano='$year'");
-        $saida = $this->mysqli->query("SELECT SUM(IF(valor < 0, valor, 0)*-1) as saida FROM lc_movimento WHERE tipo='saida' && mes='$month' && ano='$year'");
-        $in = $entrada->fetch_array(MYSQLI_ASSOC);
-        $out = $saida->fetch_array(MYSQLI_ASSOC);
+        $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE tipo='entrada' AND mes='$month' AND ano='$year'");
+        $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE tipo='saida' AND mes='$month' AND ano='$year'");
+        $in = $entrada->fetchArray();
+        $out = $saida->fetchArray();
         $resultado = ($in['entrada'] - $out['saida']);
 
         $data_one['totalResume'] = $resultado;
@@ -64,13 +63,13 @@ class GetGroup
             $year = $ano;
         }
 
-        $this->json_two = $this->mysqli->query("SELECT categoria, sum(valor) as valor FROM lc_movimento WHERE ano='$year' GROUP BY categoria ORDER BY (valor > 0) desc");
+        $result = $this->db->query("SELECT categoria, sum(valor) as valor FROM lc_movimento WHERE ano='$year' GROUP BY categoria ORDER BY valor desc");
 
-        while ($row = $this->json_two->fetch_array(MYSQLI_ASSOC)) {
+        while ($row = $result->fetchArray()) {
             $cat = $row['categoria'];
-            $res = $this->mysqli->query("SELECT nome FROM categoria WHERE id='$cat'");
-            $row2 = mysqli_fetch_array($res);
-            $categoria = $row2['nome'];
+            $res = $this->db->query("SELECT descricao FROM categoria WHERE idCategory='$cat'");
+            $row2 = $res->fetchArray();
+            $categoria = $row2['descricao'];
 
             if ($categoria === NULL) {
                 switch ($cat) {
@@ -82,10 +81,10 @@ class GetGroup
             $data_two['categoriesByYear'][] = array('categoria' => $categoria, 'valor' => $row['valor']);
         }
 
-        $entrada = $this->mysqli->query("SELECT SUM(IF(valor > 0, valor, 0)) as entrada FROM lc_movimento WHERE tipo='entrada'");
-        $saida = $this->mysqli->query("SELECT SUM(IF(valor < 0, valor, 0)*-1) as saida FROM lc_movimento WHERE tipo='saida'");
-        $in = $entrada->fetch_array(MYSQLI_ASSOC);
-        $out = $saida->fetch_array(MYSQLI_ASSOC);
+        $entrada = $this->db->query("SELECT SUM(valor) AS entrada FROM lc_movimento WHERE tipo='entrada'");
+        $saida = $this->db->query("SELECT SUM(valor*-1) AS saida FROM lc_movimento WHERE tipo='saida'");
+        $in = $entrada->fetchArray();
+        $out = $saida->fetchArray();
         $resultado = ($in['entrada'] - $out['saida']);
 
         $data_two['totalCategoriesByYear'] = $resultado;
@@ -101,12 +100,13 @@ class GetGroup
             $year = $ano;
         }
 
-        $this->json_three = $this->mysqli->query("SELECT mes, ano, sum(valor) as valor FROM lc_movimento WHERE ano='$year' GROUP BY mes");
+        $result = $this->db->query("SELECT mes, ano, SUM(valor) AS valor FROM lc_movimento WHERE ano='$year' GROUP BY mes");
 
-        while ($row = $this->json_three->fetch_array(MYSQLI_ASSOC)) {
+        while ($row = $result->fetchArray()) {
             $data_three['groupMonth'][] = array('mes' => $row['mes'], 'ano' => $row['ano'], 'valor' => $row['valor']);
         }
 
         return $data_three;
     }
+
 }

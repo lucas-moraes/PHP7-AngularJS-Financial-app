@@ -4,7 +4,7 @@ require_once("../includes/init.php");
 
 class RegCat
 {
-    protected $mysqli;
+    protected $db;
 
     public function __construct()
     {
@@ -13,11 +13,14 @@ class RegCat
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function insertCat($description)
     {
-        $this->mysqli->query("INSERT INTO categoria (nome) values ('$description')");
+        $stmt = $this->db->prepare("INSERT INTO categoria (descricao) values (:descricao)");
+        $stmt->bindValue(':descricao', $description, SQLITE3_TEXT);
+
+        $stmt->execute();
     }
 }

@@ -6,7 +6,7 @@ require_once("../includes/init.php");
 class GetDate
 {
 
-    protected $mysqli;
+    protected $db;
 
     public function __construct()
     {
@@ -15,19 +15,19 @@ class GetDate
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function getDate()
     {
-        $query_ano = $this->mysqli->query("SELECT ano from lc_movimento GROUP BY ano");
-        while ($row_ano = $query_ano->fetch_assoc()) {
+        $query_ano = $this->db->query("SELECT ano from lc_movimento GROUP BY ano");
+        while ($row_ano = $query_ano->fetchAssoc()) {
             $ano[] = array('ano' => $row_ano['ano']);
         }
         $data['ano'] = $ano;
 
-        $query_mes = $this->mysqli->query("SELECT mes from lc_movimento GROUP BY mes");
-        while ($row_mes = $query_mes->fetch_assoc()) {
+        $query_mes = $this->db->query("SELECT mes from lc_movimento GROUP BY mes");
+        while ($row_mes = $query_mes->fetchAssoc()) {
             $mes[] = array('mes' => $row_mes['mes']);
         }
         $data['mes'] = $mes;

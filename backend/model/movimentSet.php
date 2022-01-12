@@ -1,19 +1,10 @@
 <?php
+
 require_once("../includes/init.php");
 
 class EditMoviment
 {
-    protected $mysqli;
-    protected $id;
-    protected $diamesano;
-    protected $tipo;
-    protected $categoria;
-    protected $descricao;
-    protected $valor;
-    protected $value;
-    protected $dia;
-    protected $mes;
-    protected $ano;
+    protected $db;
 
     public function __construct()
     {
@@ -22,30 +13,30 @@ class EditMoviment
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function editMoviment($id, $date, $type, $category, $description, $value)
     {
-        $this->id = $id;
-        $this->diamesano = $date;
-        $this->tipo = $type;
-        $this->categoria = $category;
-        $this->descricao = $description;
-        $this->valor = str_replace(',', '.', str_replace('.', '', $value));
-        if ($this->tipo == 'saida') {
-            $this->value = -$this->valor;
-        } else {
-            $this->value = $this->valor;
-        }
+        $valor = str_replace(',', '.', str_replace('.', '', $value));
 
-        $t = explode("-", $this->diamesano);
-        $this->dia = $t[2];
-        $this->mes = $t[1];
-        $this->ano = $t[0];
+        if ($type == 'saida') { $newValue = -$valor; } else { $newValue = $valor; }
 
-        $this->mysqli->query("UPDATE lc_movimento 
-                                SET dia = '$this->dia', mes = '$this->mes', ano = '$this->ano', tipo = '$this->tipo', categoria = '$this->categoria', descricao = '$this->descricao', valor = '$this->value'
-                                WHERE id = '" . $this->id . "'");
+        $t = explode("-", $date);
+        $dia = $t[2];
+        $mes = $t[1];
+        $ano = $t[0];
+
+        $stmt = $this->db->prepare('UPDATE lc_movimento SET dia = :dia, mes = :mes, ano = :ano, tipo = :tipo, categoria = :categoria, descricao = :descricao, valor = :valor WHERE rowid = :id');
+        $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+        $stmt->bindValue(':dia', $dia, SQLITE3_INTEGER);
+        $stmt->bindValue(':mes', $mes, SQLITE3_INTEGER);
+        $stmt->bindValue(':ano', $ano, SQLITE3_INTEGER);
+        $stmt->bindValue(':tipo', $type, SQLITE3_TEXT);
+        $stmt->bindValue(':categoria', $category, SQLITE3_INTEGER);
+        $stmt->bindValue(':descricao', $description, SQLITE3_TEXT);
+        $stmt->bindValue(':valor', $newValue, SQLITE3_FLOAT);
+
+        $stmt->execute();
     }
 }

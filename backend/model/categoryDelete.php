@@ -4,18 +4,18 @@ require_once("../includes/init.php");
 
 class DelCat
 {
-    protected $mysqli;
+    protected $db;
     public function __construct()
     {
         $this->conexao();
     }
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function deleteCat($id)
     {
-        $this->mysqli->query("DELETE FROM categoria WHERE id = '" . $id . "'");
+        $this->db->query("DELETE FROM categoria WHERE idCategory = '" . $id . "'");
     }
 }

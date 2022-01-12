@@ -4,18 +4,19 @@ require_once("../includes/init.php");
 
 class DelMoviment
 {
-    protected $mysqli;
+    protected $db;
+
     public function __construct()
     {
         $this->conexao();
     }
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function deleteMoviment($id)
     {
-        $this->mysqli->query("DELETE FROM lc_movimento WHERE id = '" . $id . "'");
+        $this->db->query("DELETE FROM lc_movimento WHERE rowid = '" . $id . "'");
     }
 }

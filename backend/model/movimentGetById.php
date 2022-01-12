@@ -2,12 +2,9 @@
 
 require_once("../includes/init.php");
 
-
 class GetMovById
 {
-
-    protected $mysqli;
-    protected $moviment;
+    protected $db;
 
     public function __construct()
     {
@@ -16,15 +13,19 @@ class GetMovById
 
     private function conexao()
     {
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO);
+        $this->db = new MyDB();
     }
 
     public function getMovById($id)
     {
-        $this->moviment = $this->mysqli->query("SELECT id, dia, mes, ano, tipo, categoria, descricao, SUM(IF(valor<0, valor*-1, valor)) as valor FROM lc_movimento WHERE id='$id'");
-
-        while ($row = $this->moviment->fetch_assoc()) {
-            $json = array('id' => $row['id'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $row['categoria'], 'descricao' => $row['descricao'], 'valor' => $row['valor']);
+       $result = $this->db->query("SELECT rowid, * FROM lc_movimento WHERE rowid='$id'");
+        
+        while ($row = $result->fetchArray()) {
+            if($row['valor'] < 0)
+            {
+                $valor = $row['valor'] * -1;
+            }
+            $json[] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $row['categoria'], 'descricao' => $row['descricao'], 'valor' => $valor);
         }
 
         return $json;

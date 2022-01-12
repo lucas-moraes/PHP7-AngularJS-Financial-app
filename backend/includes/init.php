@@ -1,8 +1,8 @@
 <?php
 
-date_default_timezone_set('America/Sao_Paulo');
-
-define('BD_SERVIDOR', 'cloudcont.cvctkahbfzyk.sa-east-1.rds.amazonaws.com');
-define('BD_USUARIO', 'root');
-define('BD_SENHA', 'mariad88');
-define('BD_BANCO', 'lucaspf');
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('../../db/banco_de_dados.db');
+    }
+ }
+?>
