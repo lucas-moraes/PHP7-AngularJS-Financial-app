@@ -27,17 +27,10 @@ class RegMoviment
         $mes = $t[1];
         $ano = $t[0];
 
-        $stmt = $this->db->prepare('INSERT INTO lc_movimento(dia,mes,ano,tipo,categoria,descricao,valor) VALUES (:dia, :mes, :ano, :tipo, :categoria, :descricao, :valor)');
-        $stmt->bindValue(':dia', $dia, SQLITE3_INTEGER);
-        $stmt->bindValue(':mes', $mes, SQLITE3_INTEGER);
-        $stmt->bindValue(':ano', $ano, SQLITE3_INTEGER);
-        $stmt->bindValue(':tipo', $type, SQLITE3_TEXT);
-        $stmt->bindValue(':categoria', $category, SQLITE3_INTEGER);
-        $stmt->bindValue(':descricao', $description, SQLITE3_TEXT);
-        $stmt->bindValue(':valor', $newValue, SQLITE3_FLOAT);
+        $this->db->exec("INSERT INTO lc_movimento(dia,mes,ano,tipo,categoria,descricao,valor) VALUES ('$dia', '$mes', '$ano', '$type', '$category', '$description', '$newValue')");
+    }
 
-        $stmt->execute();
-
-        return $stmt->lastInsideRowID();
+    public function getLastId(){
+        return $this->db->lastInsertRowID();
     }
 }

@@ -36,8 +36,8 @@ class FilterMoviment
                 $data['moviment'][] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
             }
 
-            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE categoria = '$category'");
-            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE categoria = '$category'");
+            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE categoria = '$category' AND tipo='entrada'");
+            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE categoria = '$category' AND tipo='saida'");
             $in = $entrada->fetchArray();
             $out = $saida->fetchArray();
             $resultado = ($in['entrada'] - $out['saida']);
@@ -63,8 +63,8 @@ class FilterMoviment
                 $data['moviment'][] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
             }
 
-            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE mes ='$month' AND ano='$year' ");
-            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE mes ='$month' AND ano='$year' ");
+            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE tipo = 'entrada' AND  mes ='$month' AND ano='$year' ");
+            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE tipo = 'saida' AND mes ='$month' AND ano='$year' ");
             $in = $entrada->fetchArray();
             $out = $saida->fetchArray();
             $resultado = ($in['entrada'] - $out['saida']);
@@ -90,8 +90,8 @@ class FilterMoviment
                 $data['moviment'][] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
             }
 
-            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE categoria='$category' AND ano='$year' ");
-            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE categoria='$category' AND ano='$year' ");
+            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE categoria='$category' AND ano='$year' AND tipo='entrada' ");
+            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE categoria='$category' AND ano='$year'  AND tipo='saida' ");
             $in = $entrada->fetchArray();
             $out = $saida->fetchArray();
             $resultado = ($in['entrada'] - $out['saida']);
@@ -117,8 +117,8 @@ class FilterMoviment
                 $data['moviment'][] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
             }
 
-            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE ano='$year' ");
-            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE ano='$year' ");
+            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE ano='$year' AND tipo='entrada' ");
+            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE ano='$year' AND tipo='saida' ");
             $in = $entrada->fetchArray();
             $out = $saida->fetchArray();
             $resultado = ($in['entrada'] - $out['saida']);
@@ -144,8 +144,8 @@ class FilterMoviment
                 $data['moviment'][] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
             }
 
-            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE mes='$month' AND ano='$year' ");
-            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE mes='$month' AND ano='$year' ");
+            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE mes='$month' AND ano='$year' AND tipo='entrada' ");
+            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE mes='$month' AND ano='$year' AND tipo='saida' ");
             $in = $entrada->fetchArray();
             $out = $saida->fetchArray();
             $resultado = ($in['entrada'] - $out['saida']);
@@ -171,8 +171,8 @@ class FilterMoviment
                 $data['moviment'][] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $categoria, 'descricao' => $row['descricao'], 'valor' => $row['valor']);
             }
 
-            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE categoria='$category' AND mes='$month'");
-            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE categoria='$category' AND mes='$month'");
+            $entrada = $this->db->query("SELECT SUM(valor) as entrada FROM lc_movimento WHERE categoria='$category' AND mes='$month' AND tipo='entrada' ");
+            $saida = $this->db->query("SELECT SUM(valor*-1) as saida FROM lc_movimento WHERE categoria='$category' AND mes='$month' AND tipo='saida' ");
             $in = $entrada->fetchArray();
             $out = $saida->fetchArray();
             $resultado = ($in['entrada'] - $out['saida']);

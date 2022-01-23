@@ -24,7 +24,10 @@ class GetMovById
             if($row['valor'] < 0)
             {
                 $valor = $row['valor'] * -1;
+            } else {
+                $valor = $row['valor'];
             }
+            
             $json[] = array('id' => $row['rowid'], 'dia' => $row['dia'], 'mes' => $row['mes'], 'ano' => $row['ano'], 'tipo' => $row['tipo'], 'categoria' => $row['categoria'], 'descricao' => $row['descricao'], 'valor' => $valor);
         }
 

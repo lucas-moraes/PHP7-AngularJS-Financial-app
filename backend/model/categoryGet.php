@@ -20,9 +20,9 @@ class GetCat
 
     public function getCat()
     {
-        $query = $this->db->query("SELECT rowid, * FROM categoria ORDER BY descricao");
-        while ($row = $query->fetch_assoc()) {
-            $categoria[] = array('id' => $row['rowid'], 'descricao' => $row['descricao']);
+        $query = $this->db->query("SELECT * FROM categoria ORDER BY descricao");
+        while ($row = $query->fetchArray()) {
+            $categoria[] = array('id' => $row['idCategory'], 'descricao' => $row['descricao']);
         }
         $data['categoria'] = $categoria;
 

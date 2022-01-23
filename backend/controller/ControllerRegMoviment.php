@@ -12,6 +12,8 @@ class regMovController
 
     public function incluir($date, $type, $category, $description, $value)
     {
-        $this->moviment->insertMoviment($date, $type, $category, $description, $value);
+       $this->moviment->insertMoviment($date, $type, $category, $description, $value);
+       
+       return $this->moviment->getLastId();
     }
 }

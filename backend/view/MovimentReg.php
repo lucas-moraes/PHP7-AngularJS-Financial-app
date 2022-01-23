@@ -6,4 +6,6 @@ require_once("../controller/ControllerRegMoviment.php");
 
 $insert = new regMovController();
 
-$insert->incluir($_POST['date'], $_POST['type'], $_POST['category'], $_POST['description'], $_POST['value']);
+$result = $insert->incluir($_POST['date'], $_POST['type'], $_POST['category'], $_POST['description'], $_POST['value']);
+
+echo json_encode($result);
